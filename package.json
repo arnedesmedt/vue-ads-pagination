@@ -1,12 +1,12 @@
 {
   "name": "vue-ads-pagination",
   "version": "0.1.0",
-  "private": true,
   "scripts": {
     "serve": "vue-cli-service serve",
     "build": "vue-cli-service build",
+    "build:bundle": "vue-cli-service build --target lib --name table-tree ./src/index.js",
     "lint": "vue-cli-service lint",
-    "test:unit": "vue-cli-service test:unit"
+    "test:unit": "vue-cli-service test:unit --silent"
   },
   "dependencies": {
     "vue": "^2.5.16"
@@ -20,6 +20,10 @@
     "@vue/test-utils": "^1.0.0-beta.16",
     "babel-core": "7.0.0-bridge.0",
     "babel-jest": "^23.0.1",
+    "font-awesome": "^4.7.0",
+    "postcss-import": "^11.1.0",
+    "postcss-url": "^7.3.2",
+    "tailwindcss": "^0.6.1",
     "vue-template-compiler": "^2.5.16"
   },
   "eslintConfig": {
@@ -31,14 +35,31 @@
       "plugin:vue/essential",
       "@vue/standard"
     ],
-    "rules": {},
+    "rules": {
+      "indent": [
+        "error",
+        4
+      ],
+      "comma-dangle": [
+        "error",
+        "always-multiline"
+      ],
+      "semi": [
+        "error",
+        "always"
+      ],
+      "no-extra-semi": "error"
+    },
     "parserOptions": {
       "parser": "babel-eslint"
     }
   },
   "postcss": {
     "plugins": {
-      "autoprefixer": {}
+      "autoprefixer": {},
+      "tailwindcss": "./src/tailwind.config.js",
+      "postcss-import": {},
+      "postcss-url": {}
     }
   },
   "browserslist": [
@@ -65,7 +86,14 @@
       "jest-serializer-vue"
     ],
     "testMatch": [
-      "<rootDir>/(tests/unit/**/*.spec.(js|jsx|ts|tsx)|**/__tests__/*.(js|jsx|ts|tsx))"
-    ]
+      "<rootDir>/(tests/unit/*.test.(js|jsx|ts|tsx)|**/__tests__/*.(js|jsx|ts|tsx))"
+    ],
+    "collectCoverage": true,
+    "collectCoverageFrom": [
+      "src/**/*.{js,vue}",
+      "!src/*.{js,vue}",
+      "!**/node_modules/**"
+    ],
+    "coverageDirectory": "<rootDir>/tests/coverage"
   }
 }
