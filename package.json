@@ -95,5 +95,13 @@
       "!**/node_modules/**"
     ],
     "coverageDirectory": "<rootDir>/tests/coverage"
-  }
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://gitlab.com/arnedesmedt/vue-ads-pagination.git"
+  },
+  "bugs": {
+    "url": "https://gitlab.com/arnedesmedt/vue-ads-pagination/issues"
+  },
+  "homepage": "https://gitlab.com/arnedesmedt/vue-ads-pagination"
 }
