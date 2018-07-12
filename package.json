@@ -1,6 +1,7 @@
 {
   "name": "vue-ads-pagination",
-  "version": "0.1.1",
+  "version": "0.1.2",
+  "main": "./dist/vue-ads-pagination.common.js",
   "scripts": {
     "serve": "vue-cli-service serve",
     "build": "vue-cli-service build",
