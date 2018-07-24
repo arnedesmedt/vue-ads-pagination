@@ -83,3 +83,48 @@ exports[`Pagination renders the pagination if the page is equal to the last page
   </div>
 </div>
 `;
+
+exports[`Pagination renders the pagination with an even maxVisiblePages 1`] = `
+<div class="m-2 flex text-xs px-0">
+  <div class="pr-2 leading-loose">
+    Items 1 tot 10 van de 150
+  </div>
+  <div class="flex-grow text-right px-0 flex justify-end">
+    <button-stub disabled="true" title="" class="text-grey bg-grey-light cursor-default">
+      <i class="fa fa-angle-double-left"></i>
+    </button-stub>
+    <button-stub title="" class="cursor-default bg-tt-green text-white">1</button-stub>
+    <button-stub title="2" class="hover:bg-grey-lighter">2</button-stub>
+    <button-stub title="3" class="hover:bg-grey-lighter">3</button-stub>
+    <button-stub title="4" class="hover:bg-grey-lighter">4</button-stub>
+    <button-stub title="5" class="hover:bg-grey-lighter">5</button-stub>
+    <button-stub title="6" class="hover:bg-grey-lighter">6</button-stub>
+    <button-stub disabled="true" title="" class="cursor-default border-none">...</button-stub>
+    <button-stub title="15" class="hover:bg-grey-lighter">15</button-stub>
+    <button-stub title="next" class="hover:bg-grey-lighter">
+      <i class="fa fa-angle-double-right"></i>
+    </button-stub>
+  </div>
+</div>
+`;
+
+exports[`Pagination renders the pagination without maxVisiblePages 1`] = `
+<div class="m-2 flex text-xs px-0">
+  <div class="pr-2 leading-loose">
+    Items 1 tot 10 van de 50
+  </div>
+  <div class="flex-grow text-right px-0 flex justify-end">
+    <button-stub disabled="true" title="" class="text-grey bg-grey-light cursor-default">
+      <i class="fa fa-angle-double-left"></i>
+    </button-stub>
+    <button-stub title="" class="cursor-default bg-tt-green text-white">1</button-stub>
+    <button-stub title="2" class="hover:bg-grey-lighter">2</button-stub>
+    <button-stub title="3" class="hover:bg-grey-lighter">3</button-stub>
+    <button-stub title="4" class="hover:bg-grey-lighter">4</button-stub>
+    <button-stub title="5" class="hover:bg-grey-lighter">5</button-stub>
+    <button-stub title="next" class="hover:bg-grey-lighter">
+      <i class="fa fa-angle-double-right"></i>
+    </button-stub>
+  </div>
+</div>
+`;
