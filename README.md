@@ -94,6 +94,6 @@ Want to start now? Check the [issues tab](https://gitlab.com/arnedesmedt/vue-ads
 
 ## Changelog
 
-### v0.1.7
+### v0.1.8
 
  - Readme updated
