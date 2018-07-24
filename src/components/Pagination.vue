@@ -19,7 +19,7 @@
                 :disabled="button.disabled"
                 :title="button.title"
                 v-html="button.html"
-                @click.native="button.page === undefined || button.active ? null : click(button.page)"
+                @click.native="button.page === undefined || button.active ? null : pageChange(button.page)"
             >
             </Button>
         </div>
@@ -231,9 +231,9 @@ export default {
             };
         },
 
-        click (page) {
+        pageChange (page) {
             this.page = page;
-            this.$emit('click', this.page, this.range);
+            this.$emit('pageChange', this.page, this.range);
         },
     },
 };

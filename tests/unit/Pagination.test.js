@@ -168,11 +168,11 @@ describe('Pagination', () => {
         const pagination = shallowMount(Pagination, {
             propsData: props,
         });
-        pagination.vm.click(1);
+        pagination.vm.pageChange(1);
 
         expect(pagination.html()).toMatchSnapshot();
-        expect(pagination.emitted().click).toBeTruthy();
-        expect(pagination.emitted().click[0]).toEqual([
+        expect(pagination.emitted().pageChange).toBeTruthy();
+        expect(pagination.emitted().pageChange[0]).toEqual([
             1,
             {
                 start: 10,
