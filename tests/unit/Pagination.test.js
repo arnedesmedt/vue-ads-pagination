@@ -37,6 +37,48 @@ describe('Pagination', () => {
         expect(pagination.html()).toMatchSnapshot();
     });
 
+    it('renders the pagination without maxVisiblePages', function () {
+        props.totalItems = 50;
+
+        const pagination = shallowMount(Pagination, {
+            propsData: props,
+        });
+
+        expect(pagination.html()).toMatchSnapshot();
+    });
+
+    it('renders the pagination with an even maxVisiblePages', function () {
+        props.maxVisiblePages = 4;
+
+        const pagination = shallowMount(Pagination, {
+            propsData: props,
+        });
+
+        expect(pagination.html()).toMatchSnapshot();
+    });
+
+    it('shows 1...4567...15 with an even maxVisiblePages and the page is 5', function () {
+        props.maxVisiblePages = 4;
+        props.startPage = 4;
+
+        const pagination = shallowMount(Pagination, {
+            propsData: props,
+        });
+
+        expect(pagination.text()).toEqual(expect.stringMatching(/1...4567...15/));
+    });
+
+    it('shows 1...101112131415 with an even maxVisiblePages and the page is 11', function () {
+        props.maxVisiblePages = 4;
+        props.startPage = 10;
+
+        const pagination = shallowMount(Pagination, {
+            propsData: props,
+        });
+
+        expect(pagination.text()).toEqual(expect.stringMatching(/1...101112131415/));
+    });
+
     it('renders nothing with itemsPerPage is 0', function () {
         props.itemsPerPage = 0;
 
@@ -65,7 +107,7 @@ describe('Pagination', () => {
             shallowMount(Pagination, {
                 propsData: props,
             });
-        }).toThrow('Start page cannot be under zero');
+        }).toThrow('startPage has to be positive');
     });
 
     it('throws an error if the page is greater than the max page', function () {
@@ -76,7 +118,37 @@ describe('Pagination', () => {
             shallowMount(Pagination, {
                 propsData: props,
             });
-        }).toThrow('Start page cannot be greater than the total number of pages');
+        }).toThrow('startPage may be maximum the total number of pages');
+    });
+
+    it('throws an error if the totalItems is negative', function () {
+        props.totalItems = -1;
+
+        expect(() => {
+            shallowMount(Pagination, {
+                propsData: props,
+            });
+        }).toThrow('totalItems has to be positive');
+    });
+
+    it('throws an error if the itemsPerPage is negative', function () {
+        props.itemsPerPage = -1;
+
+        expect(() => {
+            shallowMount(Pagination, {
+                propsData: props,
+            });
+        }).toThrow('itemsPerPage has to be positive');
+    });
+
+    it('throws an error if the maxVisiblePages is zero or negative', function () {
+        props.maxVisiblePages = 0;
+
+        expect(() => {
+            shallowMount(Pagination, {
+                propsData: props,
+            });
+        }).toThrow('maxVisiblePages has to be greater than 0');
     });
 
     it('emits the current page and the range on a click', function () {

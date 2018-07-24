@@ -1,7 +1,9 @@
 <template>
   <div id="app">
     <Pagination
-        :totalItems="150"
+        :totalItems="200"
+        :maxVisiblePages="4"
+        :startPage="3"
     />
   </div>
 </template>

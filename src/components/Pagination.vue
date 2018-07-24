@@ -70,13 +70,13 @@ export default {
     created () {
         if (this.startPage < 0) {
             throw new Error(
-                'Start page cannot be under zero'
+                'startPage has to be positive'
             );
         }
 
         if (this.startPage > this.totalPages) {
             throw new Error(
-                'Start page cannot be greater than the total number of pages'
+                'startPage may be maximum the total number of pages'
             );
         }
     },
@@ -99,8 +99,21 @@ export default {
         },
 
         totalPages () {
+            if (this.totalItems < 0) {
+                throw new Error(
+                    'totalItems has to be positive'
+                );
+            }
+
+            if (this.itemsPerPage < 0) {
+                throw new Error(
+                    'itemsPerPage has to be positive'
+                );
+            }
+
             if (this.itemsPerPage === 0) {
                 return 0;
+
             }
 
             return Math.ceil(this.totalItems / this.itemsPerPage);
@@ -117,48 +130,52 @@ export default {
         },
 
         buttons () {
-            let diff = Math.ceil((this.maxVisiblePages - 1) / 2);
-            let start = this.page - diff;
-            let end = start + this.maxVisiblePages;
-
-            if (start < diff) {
-                end -= (start - diff);
-                start = start < 0 ? 0 : start;
+            if (this.maxVisiblePages < 1) {
+                throw new Error(
+                    'maxVisiblePages has to be greater than 0'
+                );
             }
 
-            if (end + diff > this.totalPages) {
-                start -= end - this.totalPages + diff;
-                end = end > this.totalPages ? this.totalPages : end;
+            let maxVisiblePagesWithoutActiveOne = this.maxVisiblePages - 1;
+            let diffWithThreeDot = (maxVisiblePagesWithoutActiveOne / 2) + 1;
+            let totalButtonsWithoutFirstLastNextAndPrevious = this.maxVisiblePages + 2;
+
+            let startVisibleButton = this.page - Math.floor(diffWithThreeDot);
+            if (startVisibleButton < 1) {
+                startVisibleButton = 1;
             }
 
-            let buttons = Array
-                .from(new Array(end - start), (value, index) => start + index)
-                .map(value => this.getButton(value));
-
-            if (start > 1) {
-                let button = start === 2
-                    ? this.getButton(1)
-                    : this.getButton(undefined, '...', '', true, false);
-
-                buttons.unshift(button);
+            let endVisibleButton = startVisibleButton + totalButtonsWithoutFirstLastNextAndPrevious;
+            if (endVisibleButton > this.totalPages - 1) {
+                endVisibleButton = this.totalPages - 1;
             }
 
-            if (start !== 0) {
-                buttons.unshift(this.getButton(0));
+            if (endVisibleButton - startVisibleButton < totalButtonsWithoutFirstLastNextAndPrevious) {
+                startVisibleButton = endVisibleButton - totalButtonsWithoutFirstLastNextAndPrevious;
+                startVisibleButton = startVisibleButton < 1 ? 1 : startVisibleButton;
             }
 
-            if (end < this.totalPages - 1) {
-                let button = end === this.totalPages - 2
-                    ? this.getButton(this.totalPages - 2)
-                    : this.getButton(undefined, '...', '', true, false);
+            let buttonValues = Array
+                .from(
+                    new Array(endVisibleButton - startVisibleButton),
+                    (value, index) => startVisibleButton + index
+                );
 
-                buttons.push(button);
+            if (startVisibleButton > 1) {
+                buttonValues[0] = '...';
             }
 
-            if (end !== this.totalPages) {
-                buttons.push(this.getButton(this.totalPages - 1));
+            if (endVisibleButton < this.totalPages - 1) {
+                buttonValues[buttonValues.length - 1] = '...';
             }
 
+            let buttons = buttonValues.map(value => {
+                return value === '...'
+                    ? this.getButton(undefined, '...', '', true, false)
+                    : this.getButton(value);
+            });
+
+            buttons.unshift(this.getButton(0));
             buttons.unshift(
                 this.getButton(
                     this.page - 1,
@@ -169,6 +186,7 @@ export default {
                 )
             );
 
+            buttons.push(this.getButton(this.totalPages - 1));
             buttons.push(
                 this.getButton(
                     this.page + 1,
@@ -196,7 +214,9 @@ export default {
                 page: page,
                 html: html || page + 1,
                 active,
-                title: disabled || active ? '' : title || page + 1 || '',
+                title: disabled || active
+                    ? ''
+                    : title || page + 1 || '',
                 disabled,
                 showDisabled,
             };
