@@ -94,6 +94,7 @@ Want to start now? Check the [issues tab](https://gitlab.com/arnedesmedt/vue-ads
 
 ## Changelog
 
-### v0.1.8
-
- - Readme updated
+| version | changes | 
+| --- | --- |
+| v0.1.9 | Convert item details to a slot. Now you can create your own text, in your own language for the item details. |
+| v0.1.8 | Readme updated |

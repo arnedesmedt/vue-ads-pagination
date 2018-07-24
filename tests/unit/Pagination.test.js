@@ -99,6 +99,19 @@ describe('Pagination', () => {
         expect(pagination.html()).toMatchSnapshot();
     });
 
+    it('use the slot for displaying the range', function () {
+        const pagination = shallowMount(Pagination, {
+            propsData: props,
+            scopedSlots: {
+                default: '<p slot-scope="props">' +
+                    'Items {{ props.range.start }} tot {{ props.range.end }} van de {{ props.range.total }}' +
+                    '</p>',
+            },
+        });
+
+        expect(pagination.text()).toEqual(expect.stringMatching(/Items 1 tot 10 van de 150/));
+    });
+
     it('throws an error with negative start page', function () {
         props.startPage = -1;
         props.totalItems = 1;
