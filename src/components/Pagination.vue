@@ -4,12 +4,9 @@
         class="m-2 flex text-xs px-0"
     >
         <div class="pr-2 leading-loose">
-            Items
-            {{ oneBasedStart }}
-            tot
-            {{ oneBasedEnd }}
-            van de
-            {{ totalItems }}
+            <slot :range="{start: oneBasedStart, end: oneBasedEnd, total: totalItems}">
+                {{ oneBasedStart }} - {{ oneBasedEnd }} of {{ totalItems }} items
+            </slot>
         </div>
         <div
             v-if="totalPages > 1"

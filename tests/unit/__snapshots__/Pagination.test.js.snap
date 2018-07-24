@@ -3,7 +3,7 @@
 exports[`Pagination emits the current page and the range on a click 1`] = `
 <div class="m-2 flex text-xs px-0">
   <div class="pr-2 leading-loose">
-    Items 11 tot 20 van de 150
+    11 - 20 of 150 items
   </div>
   <div class="flex-grow text-right px-0 flex justify-end">
     <button-stub title="previous" class="hover:bg-grey-lighter">
@@ -28,7 +28,7 @@ exports[`Pagination emits the current page and the range on a click 1`] = `
 exports[`Pagination renders no pages with only one page 1`] = `
 <div class="m-2 flex text-xs px-0">
   <div class="pr-2 leading-loose">
-    Items 1 tot 150 van de 150
+    1 - 150 of 150 items
   </div>
   <!---->
 </div>
@@ -37,7 +37,7 @@ exports[`Pagination renders no pages with only one page 1`] = `
 exports[`Pagination renders the pagination 1`] = `
 <div class="m-2 flex text-xs px-0">
   <div class="pr-2 leading-loose">
-    Items 1 tot 10 van de 150
+    1 - 10 of 150 items
   </div>
   <div class="flex-grow text-right px-0 flex justify-end">
     <button-stub disabled="true" title="" class="text-grey bg-grey-light cursor-default">
@@ -62,7 +62,7 @@ exports[`Pagination renders the pagination 1`] = `
 exports[`Pagination renders the pagination if the page is equal to the last page 1`] = `
 <div class="m-2 flex text-xs px-0">
   <div class="pr-2 leading-loose">
-    Items 141 tot 150 van de 150
+    141 - 150 of 150 items
   </div>
   <div class="flex-grow text-right px-0 flex justify-end">
     <button-stub title="previous" class="hover:bg-grey-lighter">
@@ -87,7 +87,7 @@ exports[`Pagination renders the pagination if the page is equal to the last page
 exports[`Pagination renders the pagination with an even maxVisiblePages 1`] = `
 <div class="m-2 flex text-xs px-0">
   <div class="pr-2 leading-loose">
-    Items 1 tot 10 van de 150
+    1 - 10 of 150 items
   </div>
   <div class="flex-grow text-right px-0 flex justify-end">
     <button-stub disabled="true" title="" class="text-grey bg-grey-light cursor-default">
@@ -111,7 +111,7 @@ exports[`Pagination renders the pagination with an even maxVisiblePages 1`] = `
 exports[`Pagination renders the pagination without maxVisiblePages 1`] = `
 <div class="m-2 flex text-xs px-0">
   <div class="pr-2 leading-loose">
-    Items 1 tot 10 van de 50
+    1 - 10 of 50 items
   </div>
   <div class="flex-grow text-right px-0 flex justify-end">
     <button-stub disabled="true" title="" class="text-grey bg-grey-light cursor-default">
