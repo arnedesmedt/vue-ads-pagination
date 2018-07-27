@@ -7,6 +7,10 @@ On the right side you can select a specific, the first, last, next or previous p
 It uses the handy
 [tailwind](https://tailwindcss.com/docs/what-is-tailwind/) css library for styling.
 
+## Demo
+
+I've written a demo in [JSFiddle](https://jsfiddle.net/arnedesmedt/18n9k6vm)
+
 ## Installation
 
 You can install the package via npm or yarn.
@@ -98,3 +102,9 @@ Want to start now? Check the [issues tab](https://gitlab.com/arnedesmedt/vue-ads
 | --- | --- |
 | v0.1.9 | Convert item details to a slot. Now you can create your own text, in your own language for the item details. |
 | v0.1.8 | Readme updated |
+
+## Social
+
+[1]: http://www.twitter.com/arnesmedt
+[1.1]: http://i.imgur.com/wWzX9uB.png (@ArneSmedt)
+ - Follow me on [![alt text][1.1]][1]
