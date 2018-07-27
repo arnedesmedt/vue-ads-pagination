@@ -9,6 +9,8 @@ It uses the handy
 
 ## Demo
 
+![Demo](https://media.giphy.com/media/1AfMQogZf9Y5ci8ck3/giphy.gif)
+
 I've written a demo in [JSFiddle](https://jsfiddle.net/arnedesmedt/18n9k6vm)
 
 ## Installation
