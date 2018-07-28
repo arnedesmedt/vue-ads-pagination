@@ -164,6 +164,22 @@ describe('Pagination', () => {
         }).toThrow('maxVisiblePages has to be greater than 0');
     });
 
+    it('emits the current page and the range on creation', function () {
+        props.startPage = 3;
+        const pagination = shallowMount(Pagination, {
+            propsData: props,
+        });
+
+        expect(pagination.emitted().pageChange).toBeTruthy();
+        expect(pagination.emitted().pageChange[0]).toEqual([
+            3,
+            {
+                start: 30,
+                end: 40,
+            },
+        ]);
+    });
+
     it('emits the current page and the range on a click', function () {
         const pagination = shallowMount(Pagination, {
             propsData: props,
@@ -172,7 +188,7 @@ describe('Pagination', () => {
 
         expect(pagination.html()).toMatchSnapshot();
         expect(pagination.emitted().pageChange).toBeTruthy();
-        expect(pagination.emitted().pageChange[0]).toEqual([
+        expect(pagination.emitted().pageChange[1]).toEqual([
             1,
             {
                 start: 10,

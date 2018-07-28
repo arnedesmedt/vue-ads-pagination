@@ -76,6 +76,8 @@ export default {
                 'startPage may be maximum the total number of pages'
             );
         }
+
+        this.$emit('pageChange', this.page, this.range);
     },
 
     data () {
