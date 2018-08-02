@@ -34,7 +34,7 @@ export default {
     name: 'Pagination',
     components: {Button},
     props: {
-        startPage: {
+        page: {
             type: Number,
             required: false,
             default: 0,
@@ -64,31 +64,33 @@ export default {
         },
     },
 
-    created () {
-        if (this.startPage < 0) {
-            throw new Error(
-                'startPage has to be positive'
-            );
-        }
-
-        if (this.startPage > this.totalPages) {
-            throw new Error(
-                'startPage may be maximum the total number of pages'
-            );
-        }
-
-        this.$emit('pageChange', this.page, this.range);
-    },
-
     data () {
         return {
-            page: this.startPage,
+            currentPage: this.page,
         };
+    },
+
+    watch: {
+        page (page) {
+            this.currentPage = page;
+        },
     },
 
     computed: {
         range () {
-            let start = this.page * this.itemsPerPage;
+            if (this.currentPage < 0) {
+                throw new Error(
+                    'page has to be positive'
+                );
+            }
+
+            if (this.currentPage > this.totalPages) {
+                throw new Error(
+                    'page may be maximum the total number of pages'
+                );
+            }
+
+            let start = this.currentPage * this.itemsPerPage;
             let end = start + this.itemsPerPage;
 
             return {
@@ -112,7 +114,6 @@ export default {
 
             if (this.itemsPerPage === 0) {
                 return 0;
-
             }
 
             return Math.ceil(this.totalItems / this.itemsPerPage);
@@ -123,12 +124,44 @@ export default {
         },
 
         oneBasedEnd () {
-            let oneBasedEnd = this.range.end;
+            let end = this.range.end;
 
-            return this.totalItems < oneBasedEnd ? this.totalItems : oneBasedEnd;
+            return this.totalItems < end ? this.totalItems : end;
         },
 
         buttons () {
+            let buttons = this.visibleButtonValues.map(value => {
+                return value === '...'
+                    ? this.getButton(undefined, '...', '', true, false)
+                    : this.getButton(value);
+            });
+
+            buttons.unshift(this.getButton(0));
+            buttons.unshift(
+                this.getButton(
+                    this.currentPage - 1,
+                    '<i class="fa fa-angle-double-left"></i>',
+                    'previous',
+                    this.currentPage === 0,
+                    true
+                )
+            );
+
+            buttons.push(this.getButton(this.totalPages - 1));
+            buttons.push(
+                this.getButton(
+                    this.currentPage + 1,
+                    '<i class="fa fa-angle-double-right"></i>',
+                    'next',
+                    this.currentPage === this.totalPages - 1,
+                    true
+                )
+            );
+
+            return buttons;
+        },
+
+        visibleButtonValues () {
             if (this.maxVisiblePages < 1) {
                 throw new Error(
                     'maxVisiblePages has to be greater than 0'
@@ -139,7 +172,7 @@ export default {
             let diffWithThreeDot = (maxVisiblePagesWithoutActiveOne / 2) + 1;
             let totalButtonsWithoutFirstLastNextAndPrevious = this.maxVisiblePages + 2;
 
-            let startVisibleButton = this.page - Math.floor(diffWithThreeDot);
+            let startVisibleButton = this.currentPage - Math.floor(diffWithThreeDot);
             if (startVisibleButton < 1) {
                 startVisibleButton = 1;
             }
@@ -154,49 +187,21 @@ export default {
                 startVisibleButton = startVisibleButton < 1 ? 1 : startVisibleButton;
             }
 
-            let buttonValues = Array
+            let visibleButtonValues = Array
                 .from(
                     new Array(endVisibleButton - startVisibleButton),
                     (value, index) => startVisibleButton + index
                 );
 
-            if (startVisibleButton > 1) {
-                buttonValues[0] = '...';
+            if (visibleButtonValues[0] > 1) {
+                visibleButtonValues[0] = '...';
             }
 
-            if (endVisibleButton < this.totalPages - 1) {
-                buttonValues[buttonValues.length - 1] = '...';
+            if (visibleButtonValues[visibleButtonValues.length - 1] < this.totalPages - 2) {
+                visibleButtonValues[visibleButtonValues.length - 1] = '...';
             }
 
-            let buttons = buttonValues.map(value => {
-                return value === '...'
-                    ? this.getButton(undefined, '...', '', true, false)
-                    : this.getButton(value);
-            });
-
-            buttons.unshift(this.getButton(0));
-            buttons.unshift(
-                this.getButton(
-                    this.page - 1,
-                    '<i class="fa fa-angle-double-left"></i>',
-                    'previous',
-                    this.page === 0,
-                    true
-                )
-            );
-
-            buttons.push(this.getButton(this.totalPages - 1));
-            buttons.push(
-                this.getButton(
-                    this.page + 1,
-                    '<i class="fa fa-angle-double-right"></i>',
-                    'next',
-                    this.page === this.totalPages - 1,
-                    true
-                )
-            );
-
-            return buttons;
+            return visibleButtonValues;
         },
     },
 
@@ -208,7 +213,7 @@ export default {
             disabled = false,
             showDisabled = true
         ) {
-            let active = page === this.page;
+            let active = page === this.currentPage;
             return {
                 page: page,
                 html: html || page + 1,
@@ -234,8 +239,8 @@ export default {
         },
 
         pageChange (page) {
-            this.page = page;
-            this.$emit('pageChange', this.page, this.range);
+            this.currentPage = page;
+            this.$emit('pageChange', this.currentPage, this.range);
         },
     },
 };
