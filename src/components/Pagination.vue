@@ -76,7 +76,9 @@ export default {
 
     watch: {
         page (page) {
-            this.currentPage = page;
+            if (page !== this.currentPage) {
+                this.pageChange(page);
+            }
         },
     },
 
