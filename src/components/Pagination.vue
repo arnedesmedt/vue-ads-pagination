@@ -70,6 +70,10 @@ export default {
         };
     },
 
+    mounted () {
+        this.pageChange(this.currentPage);
+    },
+
     watch: {
         page (page) {
             this.currentPage = page;
