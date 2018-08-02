@@ -33,7 +33,7 @@ You can use the vue-ads-pagination component by using the following code in your
 <template>
   <div id="app">
     <vue-ads-pagination
-        :startPage="3"
+        :page="3"
         :itemsPerPage="10"
         :maxVisiblePages="4"
         :totalItems="200"
@@ -64,7 +64,7 @@ export default {
 
 | property | required | default | description |
 | --- | --- | --- | --- |
-| startpage | false | 0 | A zero-based number to set the initial page |
+| page | false | 0 | A zero-based number to set the initial page |
 | itemsPerPage | false | 10 | The max amount of items on one page |
 | maxVisiblePages | false | 5 | The number of pages to be visible if their are too many pages |
 | totalItems | true |  | The total amount of items |
