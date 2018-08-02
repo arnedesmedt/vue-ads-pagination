@@ -102,6 +102,7 @@ Want to start now? Check the [issues tab](https://gitlab.com/arnedesmedt/vue-ads
 
 | version | changes | 
 | --- | --- |
+| v0.1.10 | <ul><li>Rename the emit event 'click' to 'pageChange'. It's much more explaining.</li><li>Emit a pageChange event on initialization</li><li>Rename the startPage property to page, so it can be updated at any moment.</li></ul>   |
 | v0.1.9 | Convert item details to a slot. Now you can create your own text, in your own language for the item details. |
 | v0.1.8 | Readme updated |
 
