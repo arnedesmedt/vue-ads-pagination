@@ -13,7 +13,7 @@
     "test:unit": "vue-cli-service test:unit --silent",
     "preversion": "npm run lint && npm run test:unit",
     "version": "npm run build:bundle",
-    "postversion": "git push && git push --tags"
+    "postversion": "git push origin $(git_current_branch) && git push --tags"
   },
   "dependencies": {
     "vue": "^2.5.16"
