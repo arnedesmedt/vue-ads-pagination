@@ -1,5 +1,3 @@
 node_modules
 dist
 tests/coverage
-babel.config.js
-src/tailwind.config.js
