@@ -226,8 +226,8 @@ describe('Pagination', () => {
     it('emits the current page and the range on a click', function () {
         pagination.vm.pageChange(1);
 
-        expect(pagination.emitted().pageChange).toBeTruthy();
-        expect(pagination.emitted().pageChange[1]).toEqual([
+        expect(pagination.emitted()['page-change']).toBeTruthy();
+        expect(pagination.emitted()['page-change'][1]).toEqual([
             1,
             {
                 start: 10,
@@ -242,8 +242,8 @@ describe('Pagination', () => {
             propsData: props,
         });
 
-        expect(pagination.emitted().pageChange).toBeTruthy();
-        expect(pagination.emitted().pageChange[0]).toEqual([
+        expect(pagination.emitted()['page-change']).toBeTruthy();
+        expect(pagination.emitted()['page-change'][0]).toEqual([
             3,
             {
                 start: 30,
