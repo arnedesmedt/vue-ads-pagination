@@ -83,31 +83,27 @@ We use the jest framework for testing this pagination component. Run the followi
 npm run test:unit
 ```
 
+## Changelog
+
+Read the [CHANGELOG](CHANGELOG.md) file to check what has changed.
+
 ## Issues
 
 If you have any issues (bugs, features, ...) on the current project, add them [here](https://gitlab.com/arnedesmedt/vue-ads-pagination/issues/new).
 
 ## Contributing
 
-If you would like to contribute to the current project, follow these rules:
- 
- - one pull request per issue (bug, feature, ...).
- - Test the changes if possible.
- - Update the readme if necessary.
- - Update the changelog if necessary.
- 
-Want to start now? Check the [issues tab](https://gitlab.com/arnedesmedt/vue-ads-pagination/issues) in gitlab, fork and start coding!
-
-## Changelog
-
-| version | changes | 
-| --- | --- |
-| v0.1.10 | <ul><li>Rename the emit event 'click' to 'pageChange'. It's much more explaining.</li><li>Emit a pageChange event on initialization</li><li>Rename the startPage property to page, so it can be updated at any moment.</li></ul>   |
-| v0.1.9 | Convert item details to a slot. Now you can create your own text, in your own language for the item details. |
-| v0.1.8 | Readme updated |
+Do you like to contribute to this project? Please, read the [CONTRIBUTING](CONTRIBUTING.md) file.
 
 ## Social
 
 [1]: http://www.twitter.com/arnesmedt
 [1.1]: http://i.imgur.com/wWzX9uB.png (@ArneSmedt)
  - Follow me on [![alt text][1.1]][1]
+ 
+## Donate
+
+Want to make a donation? 
+That would be highly appreciated!
+
+Make a donation via [PayPal](https://www.paypal.me/arnedesmedt).
