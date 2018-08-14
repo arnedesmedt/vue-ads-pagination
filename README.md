@@ -37,7 +37,7 @@ You can use the vue-ads-pagination component by using the following code in your
         :itemsPerPage="10"
         :maxVisiblePages="4"
         :totalItems="200"
-        @pageChange="pageChange"
+        @page-change="pageChange"
     />
   </div>
 </template>
@@ -73,7 +73,7 @@ export default {
 
 | method | parameters | description |
 | --- | --- | --- |
-| pageChange | page, range | Emitted on creation, to know the initial state, and if another page is clicked. Two parameters are given: The zero-based page and the range. This is an object that contain the start and end keys. They contain a zero-based number to identify the items to be shown.|
+| page-change | page, range | Emitted on creation, to know the initial state, and if another page is clicked. Two parameters are given: The zero-based page and the range. This is an object that contain the start and end keys. They contain a zero-based number to identify the items to be shown.|
 
 ## Testing
 

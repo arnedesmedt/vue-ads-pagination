@@ -246,7 +246,7 @@ export default {
 
         pageChange (page) {
             this.currentPage = page;
-            this.$emit('pageChange', this.currentPage, this.range);
+            this.$emit('page-change', this.currentPage, this.range);
         },
     },
 };

@@ -4,6 +4,7 @@
             :total-items="200"
             :max-visible-pages="4"
             :page="3"
+            @page-change="pageChange"
         >
             <template slot-scope="props">
                 Items {{ props.range.start }} tot {{ props.range.end }} van de {{ props.range.total }}
@@ -19,6 +20,12 @@ export default {
     name: 'app',
     components: {
         Pagination,
+    },
+
+    methods: {
+        pageChange (page, range) {
+            console.log(page, range);
+        },
     },
 };
 </script>
