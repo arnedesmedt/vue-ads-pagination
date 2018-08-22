@@ -162,54 +162,6 @@ describe('Pagination', () => {
         ]);
     });
 
-    it('disables a button', function () {
-        expect(pagination.vm.buttonClasses({
-            disabled: true,
-            showDisabled: true,
-            active: false,
-        })).toEqual({
-            'text-grey': true,
-            'bg-grey-light': true,
-            'cursor-default': true,
-            'border-none': false,
-            'bg-tt-green': false,
-            'text-white': false,
-            'hover:bg-grey-lighter': false,
-        });
-    });
-
-    it('activates a button', function () {
-        expect(pagination.vm.buttonClasses({
-            disabled: false,
-            showDisabled: false,
-            active: true,
-        })).toEqual({
-            'text-grey': false,
-            'bg-grey-light': false,
-            'cursor-default': true,
-            'border-none': false,
-            'bg-tt-green': true,
-            'text-white': true,
-            'hover:bg-grey-lighter': false,
-        });
-    });
-
-    it('disables a button, but don\'t show it', function () {
-        expect(pagination.vm.buttonClasses({
-            disabled: true,
-            showDisabled: false,
-            active: false,
-        })).toEqual({
-            'text-grey': false,
-            'bg-grey-light': false,
-            'cursor-default': true,
-            'border-none': true,
-            'bg-tt-green': false,
-            'text-white': false,
-            'hover:bg-grey-lighter': false,
-        });
-    });
-
     it('use the slot for displaying the range', function () {
         const pagination = shallowMount(Pagination, {
             propsData: props,
