@@ -39,6 +39,7 @@ You can add the vue-ads-pagination component by using the following code in your
             @page-change="pageChange"
             :detail-classes="['underline']"
             :button-classes="buttonClasses"
+            :loading="true"
         >
             <template slot-scope="props">
                 Items {{ props.range.start }} tot {{ props.range.end }} van de {{ props.range.total }}
@@ -82,6 +83,7 @@ export default {
 - `itemsPerPage`: *(type: number, default: 10)* The max amount of items on one page.
 - `maxVisiblePages`: *(type: number, default: 5)* The number of pages to be visible if their are too many pages.
 - `totalItems`: *(type: number, required)* The total amount of items.
+- `loading`: *(type: boolean, default: false)* Indicates if the current page is loading.
 - `detailClasses`: *(type: array)* A list of (tailwind) classes you can add to change the detail box ui.
 - `buttonClasses`: *(type: object)* An object to change the buttons ui for each state:
     - `default`: *(type: array)* A list of (tailwind) classes you can add to change the ui of the default button. These classes are added on all buttons.

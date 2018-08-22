@@ -7,6 +7,7 @@
             @page-change="pageChange"
             :detail-classes="['underline']"
             :button-classes="buttonClasses"
+            :loading="true"
         >
             <template slot-scope="props">
                 Items {{ props.range.start }} tot {{ props.range.end }} van de {{ props.range.total }}

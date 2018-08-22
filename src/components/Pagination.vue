@@ -16,6 +16,7 @@
                 v-for="(button, key) in buttons"
                 :key="key"
                 :button="button"
+                :loading="loading"
                 @page-change="pageChange(button.page)"
             >
             </button-component>
