@@ -27,7 +27,7 @@ You can install the package via npm or yarn.
 
 ## Usage
 
-You can use the vue-ads-pagination component by using the following code in your project.
+You can add the vue-ads-pagination component by using the following code in your project.
 
 ```vue
 <template>
@@ -62,19 +62,19 @@ export default {
 
 ### Properties
 
-| property | required | default | description |
-| --- | --- | --- | --- |
-| page | false | 0 | A zero-based number to set the initial page |
-| itemsPerPage | false | 10 | The max amount of items on one page |
-| maxVisiblePages | false | 5 | The number of pages to be visible if their are too many pages |
-| totalItems | true |  | The total amount of items |
+- `page`: *(type: number, default: 0)* A zero-based number to set the page.
+- `itemsPerPage`: *(type: number, default: 10)* The max amount of items on one page.
+- `maxVisiblePages`: *(type: number, default: 5)* The number of pages to be visible if their are too many pages.
+- `totalItems`: *(type: number, required)* The total amount of items.
 
-### Methods
+### Events
 
-| method | parameters | description |
-| --- | --- | --- |
-| page-change | page, range | Emitted on creation, to know the initial state, and if another page is clicked. Two parameters are given: The zero-based page and the range. This is an object that contain the start and end keys. They contain a zero-based number to identify the items to be shown.|
-
+- `page-change`: Emitted on creation, to know the initial state, and if another page is clicked. It contains the following parameters:
+    - `page`: *(type: number)* The zero-based current page.
+    - `range`: *(type: object)* Object with the following parameters:
+        - `start`: *(type: number)* A zero-based number to identify the first item.
+        - `end`: *(type: number)* A zero-based number to identify the last item.
+        
 ## Testing
 
 We use the jest framework for testing this pagination component. Run the following command to test it:
