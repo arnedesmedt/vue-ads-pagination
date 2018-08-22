@@ -3,7 +3,7 @@
         v-if="totalPages > 0"
         class="m-2 flex text-xs px-0"
     >
-        <div class="pr-2 leading-loose">
+        <div class="pr-2 leading-loose" :class="detailClasses">
             <slot :range="{start: oneBasedStart, end: oneBasedEnd, total: totalItems}">
                 {{ oneBasedStart }} - {{ oneBasedEnd }} of {{ totalItems }} items
             </slot>
@@ -12,27 +12,29 @@
             v-if="totalPages > 1"
             class="flex-grow text-right px-0 flex justify-end"
         >
-            <Button
+            <button-component
                 v-for="(button, key) in buttons"
                 :key="key"
-                :class="buttonClasses(button)"
-                :disabled="button.disabled"
-                :title="button.title"
-                v-html="button.html"
-                @click.native="button.page === undefined || button.active ? null : pageChange(button.page)"
+                :button="button"
+                @page-change="pageChange(button.page)"
             >
-            </Button>
+            </button-component>
         </div>
     </div>
 </template>
 
 <script>
 import '../assets/css/styles.css';
-import Button from './Button';
+import Button from '../models/Button';
+import ButtonComponent from './Button';
 
 export default {
     name: 'Pagination',
-    components: {Button},
+
+    components: {
+        ButtonComponent,
+    },
+
     props: {
         page: {
             type: Number,
@@ -61,6 +63,18 @@ export default {
             type: Boolean,
             required: false,
             default: false,
+        },
+
+        detailClasses: {
+            type: Array,
+            required: false,
+            default: () => [],
+        },
+
+        buttonClasses: {
+            type: Object,
+            required: false,
+            default: () => {},
         },
     },
 
@@ -138,7 +152,7 @@ export default {
         buttons () {
             let buttons = this.visibleButtonValues.map(value => {
                 return value === '...'
-                    ? this.getButton(undefined, '...', '', true, false)
+                    ? this.getButton(undefined, '...', '', false, true)
                     : this.getButton(value);
             });
 
@@ -148,8 +162,7 @@ export default {
                     this.currentPage - 1,
                     '<i class="fa fa-angle-double-left"></i>',
                     'previous',
-                    this.currentPage === 0,
-                    true
+                    this.currentPage === 0
                 )
             );
 
@@ -159,10 +172,13 @@ export default {
                     this.currentPage + 1,
                     '<i class="fa fa-angle-double-right"></i>',
                     'next',
-                    this.currentPage === this.totalPages - 1,
-                    true
+                    this.currentPage === this.totalPages - 1
                 )
             );
+
+            buttons.forEach(button => {
+                button.externalClasses = this.buttonClasses;
+            });
 
             return buttons;
         },
@@ -217,31 +233,16 @@ export default {
             html = undefined,
             title = undefined,
             disabled = false,
-            showDisabled = true
+            dots = false
         ) {
-            let active = page === this.currentPage;
-            return {
-                page: page,
-                html: html || page + 1,
-                active,
-                title: disabled || active
-                    ? ''
-                    : title || page + 1 || '',
-                disabled,
-                showDisabled,
-            };
-        },
+            let button = new Button(page);
+            button.active = page === this.currentPage;
+            button.html = html;
+            button.title = title;
+            button.disabled = disabled;
+            button.dots = dots;
 
-        buttonClasses (button) {
-            return {
-                'text-grey': button.disabled && button.showDisabled,
-                'bg-grey-light': button.disabled && button.showDisabled,
-                'cursor-default': button.disabled || button.active,
-                'border-none': button.disabled && !button.showDisabled,
-                'bg-tt-green': button.active,
-                'text-white': button.active,
-                'hover:bg-grey-lighter': !button.active && !button.disabled,
-            };
+            return button;
         },
 
         pageChange (page) {

@@ -31,19 +31,20 @@ You can add the vue-ads-pagination component by using the following code in your
 
 ```vue
 <template>
-  <div id="app">
-    <vue-ads-pagination
-        :page="3"
-        :itemsPerPage="10"
-        :maxVisiblePages="4"
-        :totalItems="200"
-        @page-change="pageChange"
-    >
-        <template slot-scope="props">
-            {{ props.range.start }} - {{ props.range.end }} : Total {{ props.range.total }}
-        </template>
-    </vue-ads-pagination>
-  </div>
+    <div id="app">
+        <vue-ads-pagination
+            :total-items="200"
+            :max-visible-pages="4"
+            :page="3"
+            @page-change="pageChange"
+            :detail-classes="['underline']"
+            :button-classes="buttonClasses"
+        >
+            <template slot-scope="props">
+                Items {{ props.range.start }} tot {{ props.range.end }} van de {{ props.range.total }}
+            </template>
+        </vue-ads-pagination>
+    </div>
 </template>
 
 <script>
@@ -53,6 +54,17 @@ export default {
     name: 'app',
     components: {
         VueAdsPagination,
+    },
+
+    data () {
+        return {
+            'buttonClasses': {
+                'default': ['border-none', 'bg-grey-lightest'],
+                'active': ['bg-orange', 'border-none'],
+                'dots': ['bg-white'],
+                'disabled': ['bg-grey-light'],
+            },
+        };
     },
 
     methods: {
@@ -70,6 +82,12 @@ export default {
 - `itemsPerPage`: *(type: number, default: 10)* The max amount of items on one page.
 - `maxVisiblePages`: *(type: number, default: 5)* The number of pages to be visible if their are too many pages.
 - `totalItems`: *(type: number, required)* The total amount of items.
+- `detailClasses`: *(type: array)* A list of (tailwind) classes you can add to change the detail box ui.
+- `buttonClasses`: *(type: object)* An object to change the buttons ui for each state:
+    - `default`: *(type: array)* A list of (tailwind) classes you can add to change the ui of the default button. These classes are added on all buttons.
+    - `active`: *(type: array)* A list of (tailwind) classes you can add to change the ui of the active button.
+    - `disabled`: *(type: array)* A list of (tailwind) classes you can add to change the ui of the disabled button.
+    - `dots`: *(type: array)* A list of (tailwind) classes you can add to change the ui of the dots.
 
 ### Events
 
