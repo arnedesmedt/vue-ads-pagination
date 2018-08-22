@@ -4,9 +4,18 @@
         :class="button.classes"
         :disabled="button.disabled"
         :title="button.title"
-        v-html="button.html"
-        @click="pageChange(button)"
+        @click="pageChange"
     >
+        <i
+            v-if="isLoading"
+            class="fa fa-spinner fa-spin"
+        >
+
+        </i>
+        <span
+            v-else
+            v-html="isLoading ? '' : button.html"
+        ></span>
     </button>
 </template>
 
@@ -21,11 +30,23 @@ export default {
             type: Button,
             required: true,
         },
+
+        loading: {
+            type: Boolean,
+            required: false,
+            default: false,
+        },
+    },
+
+    computed: {
+        isLoading () {
+            return this.button.active && this.loading;
+        },
     },
 
     methods: {
-        pageChange (button) {
-            if (button.page === undefined || button.active) {
+        pageChange () {
+            if (this.button.page === undefined || this.button.active) {
                 return;
             }
 
