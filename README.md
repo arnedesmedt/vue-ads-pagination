@@ -38,7 +38,11 @@ You can add the vue-ads-pagination component by using the following code in your
         :maxVisiblePages="4"
         :totalItems="200"
         @page-change="pageChange"
-    />
+    >
+        <template slot-scope="props">
+            {{ props.range.start }} - {{ props.range.end }} : Total {{ props.range.total }}
+        </template>
+    </vue-ads-pagination>
   </div>
 </template>
 
@@ -75,6 +79,23 @@ export default {
         - `start`: *(type: number)* A zero-based number to identify the first item.
         - `end`: *(type: number)* A zero-based number to identify the last item.
         
+### Templates
+
+#### Default
+
+You can add a default template to use a custom pagination detail box.
+The scope contains only one variable: the range object. It contains three parameters:
+
+- `start`: *(type: number)* The one-based start item.
+- `end`: *(type: number)* The one-based end item.
+- `total`: *(type: number)* The total number of available items.
+
+```vue
+<template slot-scope="props">
+    {{ props.range.start }} - {{ props.range.end }} : Total {{ props.range.total }}
+</template>
+```
+
 ## Testing
 
 We use the jest framework for testing this pagination component. Run the following command to test it:
