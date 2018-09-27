@@ -1,7 +1,9 @@
 {
   "name": "vue-ads-pagination",
   "version": "1.1.0",
+  "private": false,
   "main": "./dist/vue-ads-pagination.common.js",
+  "description": "A Vue pagination plugin.",
   "files": [
     "/dist"
   ],
@@ -13,12 +15,14 @@
     "test:unit": "vue-cli-service test:unit --silent",
     "preversion": "npm run lint && npm run test:unit",
     "version": "npm run build:bundle",
-    "postversion": "git push origin $(git_current_branch) && git push --tags"
+    "postversion": "git push && git push --tags"
   },
   "dependencies": {
+    "@fortawesome/fontawesome-free": "^5.3.1",
     "vue": "^2.5.16"
   },
   "devDependencies": {
+    "@fullhuman/postcss-purgecss": "^1.1.0",
     "@vue/cli-plugin-babel": "^3.0.0-rc.3",
     "@vue/cli-plugin-eslint": "^3.0.0-rc.3",
     "@vue/cli-plugin-unit-jest": "^3.0.0-rc.3",
@@ -27,7 +31,6 @@
     "@vue/test-utils": "^1.0.0-beta.16",
     "babel-core": "7.0.0-bridge.0",
     "babel-jest": "^23.0.1",
-    "font-awesome": "^4.7.0",
     "postcss-import": "^11.1.0",
     "postcss-url": "^7.3.2",
     "tailwindcss": "^0.6.1",
@@ -38,41 +41,19 @@
     "last 2 versions",
     "not ie <= 8"
   ],
-  "jest": {
-    "moduleFileExtensions": [
-      "js",
-      "jsx",
-      "json",
-      "vue"
-    ],
-    "transform": {
-      "^.+\\.vue$": "vue-jest",
-      ".+\\.(css|styl|less|sass|scss|png|jpg|ttf|woff|woff2)$": "jest-transform-stub",
-      "^.+\\.jsx?$": "babel-jest"
-    },
-    "moduleNameMapper": {
-      "^@/(.*)$": "<rootDir>/src/$1"
-    },
-    "snapshotSerializers": [
-      "jest-serializer-vue"
-    ],
-    "testMatch": [
-      "<rootDir>/(tests/unit/*/*.test.(js|jsx|ts|tsx)|**/__tests__/*.(js|jsx|ts|tsx))"
-    ],
-    "collectCoverage": true,
-    "collectCoverageFrom": [
-      "src/**/*.{js,vue}",
-      "!src/*.{js,vue}",
-      "!**/node_modules/**"
-    ],
-    "coverageDirectory": "<rootDir>/tests/coverage"
-  },
   "repository": {
     "type": "git",
-    "url": "https://gitlab.com/arnedesmedt/vue-ads-pagination.git"
+    "url": "https://github.com/arnedesmedt/vue-ads-pagination.git"
   },
   "bugs": {
-    "url": "https://gitlab.com/arnedesmedt/vue-ads-pagination/issues"
+    "url": "https://github.com/arnedesmedt/vue-ads-pagination/issues"
   },
-  "homepage": "https://gitlab.com/arnedesmedt/vue-ads-pagination"
+  "homepage": "https://github.com/arnedesmedt/vue-ads-pagination",
+  "author": "Arne De Smedt <arnedesmdt@gmail.com> (https://twitter.com/ArneSmedt)",
+  "license": "MIT",
+  "keywords": [
+    "vue",
+    "component",
+    "pagination"
+  ]
 }
