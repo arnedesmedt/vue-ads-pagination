@@ -33,14 +33,6 @@
     "tailwindcss": "^0.6.1",
     "vue-template-compiler": "^2.5.16"
   },
-  "postcss": {
-    "plugins": {
-      "autoprefixer": {},
-      "tailwindcss": "./src/tailwind.config.js",
-      "postcss-import": {},
-      "postcss-url": {}
-    }
-  },
   "browserslist": [
     "> 1%",
     "last 2 versions",
