@@ -1,7 +1,7 @@
 import { shallowMount } from '@vue/test-utils';
 import Pagination from '@/components/Pagination.vue';
 
-describe('Pagination', () => {
+describe('VueAdsPagination', () => {
     let pagination;
     let props;
 

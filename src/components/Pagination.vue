@@ -3,8 +3,8 @@
         v-if="totalPages > 0"
         class="m-2 flex text-xs px-0"
     >
-        <div 
-            :class="detailClasses" 
+        <div
+            :class="detailClasses"
             class="pr-2 leading-loose">
             <slot :range="{start: oneBasedStart, end: oneBasedEnd, total: totalItems}">
                 {{ oneBasedStart }} - {{ oneBasedEnd }} of {{ totalItems }} items
@@ -14,7 +14,7 @@
             v-if="totalPages > 1"
             class="flex-grow text-right px-0 flex justify-end"
         >
-            <button-component
+            <vue-ads-button
                 v-for="(button, key) in buttons"
                 :key="key"
                 :button="button"
@@ -26,15 +26,15 @@
 </template>
 
 <script>
-import '../assets/css/styles.css';
+import '../assets/css/tailwind.css';
 import Button from '../models/Button';
-import ButtonComponent from './Button';
+import VueAdsButton from './Button';
 
 export default {
-    name: 'Pagination',
+    name: 'VueAdsPagination',
 
     components: {
-        ButtonComponent,
+        VueAdsButton,
     },
 
     props: {

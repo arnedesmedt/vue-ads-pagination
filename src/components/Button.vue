@@ -21,7 +21,7 @@
 import Button from '../models/Button';
 
 export default {
-    name: 'Button',
+    name: 'VueAdsButton',
 
     props: {
         button: {
