@@ -1,21 +1,19 @@
 <template>
     <button
-        class="border ml-1 leading-normal w-6"
         :class="button.classes"
         :disabled="button.disabled"
         :title="button.title"
+        class="border ml-1 leading-normal w-6"
         @click="pageChange"
     >
         <i
             v-if="isLoading"
             class="fa fa-spinner fa-spin"
-        >
-
-        </i>
+        />
         <span
             v-else
             v-html="isLoading ? '' : button.html"
-        ></span>
+        />
     </button>
 </template>
 

@@ -3,7 +3,9 @@
         v-if="totalPages > 0"
         class="m-2 flex text-xs px-0"
     >
-        <div class="pr-2 leading-loose" :class="detailClasses">
+        <div 
+            :class="detailClasses" 
+            class="pr-2 leading-loose">
             <slot :range="{start: oneBasedStart, end: oneBasedEnd, total: totalItems}">
                 {{ oneBasedStart }} - {{ oneBasedEnd }} of {{ totalItems }} items
             </slot>
@@ -18,8 +20,7 @@
                 :button="button"
                 :loading="loading"
                 @page-change="pageChange(button.page)"
-            >
-            </button-component>
+            />
         </div>
     </div>
 </template>
@@ -83,18 +84,6 @@ export default {
         return {
             currentPage: this.page,
         };
-    },
-
-    mounted () {
-        this.pageChange(this.currentPage);
-    },
-
-    watch: {
-        page (page) {
-            if (page !== this.currentPage) {
-                this.pageChange(page);
-            }
-        },
     },
 
     computed: {
@@ -226,6 +215,18 @@ export default {
 
             return visibleButtonValues;
         },
+    },
+
+    watch: {
+        page (page) {
+            if (page !== this.currentPage) {
+                this.pageChange(page);
+            }
+        },
+    },
+
+    mounted () {
+        this.pageChange(this.currentPage);
     },
 
     methods: {

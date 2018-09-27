@@ -42,8 +42,8 @@ describe('Button', () => {
         let button = new Button();
         button.active = true;
         button.externalClasses = {
-            'default': ['border-none'],
-            'active': ['underline'],
+            default: ['border-none'],
+            active: ['underline'],
         };
 
         expect(button.classes).toEqual([
