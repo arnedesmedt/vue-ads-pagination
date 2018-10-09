@@ -148,11 +148,6 @@ export default {
     },
 
     watch: {
-        page: {
-            handler: 'pageChange',
-            immediate: true,
-        },
-
         totalItems: {
             handler: 'validTotalItems',
             immediate: true,
@@ -165,6 +160,11 @@ export default {
 
         maxVisiblePages: {
             handler: 'validMaxVisiblePages',
+            immediate: true,
+        },
+
+        page: {
+            handler: 'pageChange',
             immediate: true,
         },
     },
@@ -220,7 +220,7 @@ export default {
 
             if (page >= this.totalPages) {
                 throw new Error(
-                    'page may be maximum the total number of pages minus one.'
+                    'page may be maximum the total number of pages minus one'
                 );
             }
 

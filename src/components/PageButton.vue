@@ -72,7 +72,11 @@ export default {
 
     methods: {
         pageChange () {
-            if (this.page === undefined || this.active) {
+            if (
+                this.page === '...' ||
+                this.disabled ||
+                this.active
+            ) {
                 return;
             }
 

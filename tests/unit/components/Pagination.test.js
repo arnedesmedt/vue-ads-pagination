@@ -19,75 +19,76 @@ describe('VueAdsPagination', () => {
         });
     });
 
-    it('throws an error if the page is negative', function () {
-        pagination.setProps({
-            page: -1,
-        });
-
+    it('throws an error if the page is negative', () => {
         expect(() => {
-            pagination.vm.range;
+            props.page = -1;
+            pagination = shallowMount(Pagination, {
+                propsData: props,
+            });
         }).toThrow('page has to be positive');
     });
 
-    it('throws an error if the page is greater than the totalPages', function () {
-        pagination.setProps({
-            page: 20,
-        });
-
+    it('throws an error if the page is greater than the totalPages', () => {
         expect(() => {
-            pagination.vm.range;
-        }).toThrow('page may be maximum the total number of pages');
+            props.page = 20;
+            pagination = shallowMount(Pagination, {
+                propsData: props,
+            });
+        }).toThrow('page may be maximum the total number of pages minus one');
     });
 
-    it('throws an error if the totalItems is negative', function () {
-        pagination.setProps({
-            totalItems: -1,
-        });
 
+    it('throws an error if the totalItems is negative', () => {
         expect(() => {
-            pagination.vm.totalPages;
+            props.totalItems = -1;
+            pagination = shallowMount(Pagination, {
+                propsData: props,
+            });
         }).toThrow('totalItems has to be positive');
     });
 
-    it('calculates the correct range', function () {
-        let range = pagination.vm.range;
 
-        expect(range.start).toBe(0);
-        expect(range.end).toBe(10);
+    it('throws an error if the itemsPerPage is negative', () => {
+        expect(() => {
+            props.itemsPerPage = -1;
+            pagination = shallowMount(Pagination, {
+                propsData: props,
+            });
+        }).toThrow('itemsPerPage has to be positive');
     });
 
-    it('calculates the range of the second page', function () {
+
+    it('throws an error if the maxVisiblePages is negative', () => {
+        expect(() => {
+            props.maxVisiblePages = -1;
+            pagination = shallowMount(Pagination, {
+                propsData: props,
+            });
+        }).toThrow('maxVisiblePages has to be greater than 0');
+    });
+
+    it('calculates the correct start and end', () => {
+        let start = pagination.vm.start;
+        let end = pagination.vm.end;
+
+        expect(start).toBe(0);
+        expect(end).toBe(10);
+    });
+
+    it('calculates the start and end of the second page', () => {
         pagination.setProps({
             page: 1,
         });
 
-        let range = pagination.vm.range;
+        let start = pagination.vm.start;
+        let end = pagination.vm.end;
 
-        expect(range.start).toBe(10);
-        expect(range.end).toBe(20);
+        expect(start).toBe(10);
+        expect(end).toBe(20);
     });
 
-    it('throws an error if the totalItems is negative', function () {
-        pagination.setProps({
-            totalItems: -1,
-        });
 
-        expect(() => {
-            pagination.vm.totalPages;
-        }).toThrow('totalItems has to be positive');
-    });
-
-    it('throws an error if the itemsPerPage is negative', function () {
-        pagination.setProps({
-            itemsPerPage: -1,
-        });
-
-        expect(() => {
-            pagination.vm.totalPages;
-        }).toThrow('itemsPerPage has to be positive');
-    });
-
-    it('totalPages is zero if itemsPerPage is zero', function () {
+    it('totalPages is zero if itemsPerPage is zero', () => {
         pagination.setProps({
             itemsPerPage: 0,
         });
@@ -95,100 +96,72 @@ describe('VueAdsPagination', () => {
         expect(pagination.vm.totalPages).toBe(0);
     });
 
-    it('returns the correct number of pages', function () {
+    it('returns the correct number of pages', () => {
         expect(pagination.vm.totalPages).toBe(15);
     });
 
-    it('returns the correct oneBasedStart', function () {
-        expect(pagination.vm.oneBasedStart).toBe(1);
+    it('returns the correct visiblePages if their are more pages then maxVisiblePages', () => {
+        expect(pagination.vm.visiblePages).toBe(5);
     });
 
-    it('returns the correct oneBasedEnd', function () {
-        expect(pagination.vm.oneBasedEnd).toBe(10);
-    });
-
-    it('returns a oneBasedEnd lower than the calculated end if no more items are left', function () {
+    it('returns the correct visiblePages if their are less pages then maxVisiblePages', () => {
         pagination.setProps({
-            totalItems: 145,
-            page: 14,
+            totalItems: 10,
         });
-
-        expect(pagination.vm.oneBasedEnd).toBe(145);
+        expect(pagination.vm.visiblePages).toBe(1);
     });
 
-    it('throws an error if the maxVisiblePages is lower than 1', function () {
+    it('returns the correct pages if their are more pages then maxVisiblePages', () => {
+        expect(pagination.vm.pages).toEqual([-1, 0, 1, 2, 3, 4, 5, 6, '...', 14, 1]);
+    });
+
+    it('returns the correct pages if their are less pages then maxVisiblePages', () => {
         pagination.setProps({
-            maxVisiblePages: 0,
+            totalItems: 20,
         });
-
-        expect(() => {
-            pagination.vm.visibleButtonValues;
-        }).toThrow('maxVisiblePages has to be greater than 0');
+        expect(pagination.vm.pages).toEqual([-1, 0, 1, 1]);
     });
 
-    it('returns the default visibleButtonValues', function () {
-        expect(pagination.vm.visibleButtonValues).toEqual([
-            1, 2, 3, 4, 5, 6, '...',
-        ]);
-    });
-
-    it('returns the visibleButtonValues when the page is 6', function () {
-        pagination.setProps({
-            page: 5,
-        });
-
-        expect(pagination.vm.visibleButtonValues).toEqual([
-            '...', 3, 4, 5, 6, 7, '...',
-        ]);
-    });
-
-    it('returns the visibleButtonValues when the page is 10', function () {
-        pagination.setProps({
-            page: 9,
-        });
-
-        expect(pagination.vm.visibleButtonValues).toEqual([
-            '...', 7, 8, 9, 10, 11, '...',
-        ]);
-    });
-
-    it('returns the visibleButtonValues when the page is 14', function () {
-        pagination.setProps({
-            page: 13,
-        });
-
-        expect(pagination.vm.visibleButtonValues).toEqual([
-            '...', 8, 9, 10, 11, 12, 13,
-        ]);
-    });
-
-    it('use the slot for displaying the range', function () {
+    it('uses the slot for displaying the range', function () {
         const pagination = shallowMount(Pagination, {
             propsData: props,
             scopedSlots: {
-                default: '<p slot-scope="props">' +
-                    'Items {{ props.range.start }} tot {{ props.range.end }} van de {{ props.range.total }}' +
-                    '</p>',
+                default: '<p id="range" slot-scope="props">' +
+                'Items {{ props.start }} tot {{ props.end }} van de {{ props.total }}' +
+                '</p>',
             },
         });
 
-        expect(pagination.text()).toEqual(expect.stringMatching(/Items 1 tot 10 van de 150/));
+        expect(pagination.find('#range').text()).toEqual('Items 1 tot 10 van de 150');
     });
 
-    it('emits the current page and the range on a click', function () {
+
+
+    it('uses the buttons slot for displaying the buttons', function () {
+        const pagination = shallowMount(Pagination, {
+            propsData: props,
+            scopedSlots: {
+                buttons: '<div id="buttons" slot="buttons" slot-scope="props">' +
+                '<span v-for="(button,key) in props.buttons">{{ button.page }}</span>' +
+                '</div>',
+            },
+        });
+
+        expect(pagination.find('#buttons').text()).toEqual('-10123456...141');
+    });
+
+    it('emits the current page, the start and end value on a click', function () {
         pagination.vm.pageChange(1);
 
         expect(pagination.emitted()['page-change']).toBeTruthy();
         expect(pagination.emitted()['page-change'][1]).toEqual([
             1,
-            {
-                start: 10,
-                end: 20,
-            },
+            10,
+            20,
         ]);
     });
 
-    it('emits the current page and the range on creation', function () {
+    it('emits the current page, the start and end value on creation', function () {
         props.page = 3;
         const pagination = shallowMount(Pagination, {
             propsData: props,
@@ -197,20 +170,8 @@ describe('VueAdsPagination', () => {
         expect(pagination.emitted()['page-change']).toBeTruthy();
         expect(pagination.emitted()['page-change'][0]).toEqual([
             3,
-            {
-                start: 30,
-                end: 40,
-            },
+            30,
+            40,
         ]);
-    });
-
-    it('updates the page externally', function () {
-        expect(pagination.vm.currentPage).toBe(0);
-
-        pagination.setProps({
-            page: 1,
-        });
-
-        expect(pagination.vm.currentPage).toBe(1);
     });
 });
