@@ -1,39 +1,47 @@
 <template>
     <div
         v-if="totalPages > 0"
-        class="m-2 flex text-xs px-0"
+        class="flex m-2 px-0 text-xs"
     >
-        <div class="pr-2 leading-loose" :class="detailClasses">
-            <slot :range="{start: oneBasedStart, end: oneBasedEnd, total: totalItems}">
-                {{ oneBasedStart }} - {{ oneBasedEnd }} of {{ totalItems }} items
-            </slot>
-        </div>
+        <slot
+            :start="start + 1"
+            :end="end"
+            :total="totalItems"
+        >
+            <div
+                class="pr-2 leading-loose"
+            >
+                {{ start + 1 }} - {{ end }} of {{ totalItems }} items
+            </div>
+        </slot>
         <div
             v-if="totalPages > 1"
-            class="flex-grow text-right px-0 flex justify-end"
+            class="flex-grow flex justify-end"
         >
-            <button-component
-                v-for="(button, key) in buttons"
-                :key="key"
-                :button="button"
-                :loading="loading"
-                @page-change="pageChange(button.page)"
+            <slot
+                :buttons="buttons"
+                name="buttons"
             >
-            </button-component>
+                <vue-ads-page-button
+                    v-for="(button, key) in buttons"
+                    :key="key"
+                    v-bind="button"
+                    @page-change="pageChange(button.page)"
+                />
+            </slot>
         </div>
     </div>
 </template>
 
 <script>
-import '../assets/css/styles.css';
-import Button from '../models/Button';
-import ButtonComponent from './Button';
+import '../assets/css/tailwind.css';
+import VueAdsPageButton from './PageButton';
 
 export default {
-    name: 'Pagination',
+    name: 'VueAdsPagination',
 
     components: {
-        ButtonComponent,
+        VueAdsPageButton,
     },
 
     props: {
@@ -65,74 +73,26 @@ export default {
             required: false,
             default: false,
         },
-
-        detailClasses: {
-            type: Array,
-            required: false,
-            default: () => [],
-        },
-
-        buttonClasses: {
-            type: Object,
-            required: false,
-            default: () => {},
-        },
     },
 
     data () {
         return {
-            currentPage: this.page,
+            currentPage: null,
         };
     },
 
-    mounted () {
-        this.pageChange(this.currentPage);
-    },
-
-    watch: {
-        page (page) {
-            if (page !== this.currentPage) {
-                this.pageChange(page);
-            }
-        },
-    },
-
     computed: {
-        range () {
-            if (this.currentPage < 0) {
-                throw new Error(
-                    'page has to be positive'
-                );
-            }
+        start () {
+            return this.currentPage * this.itemsPerPage;
+        },
 
-            if (this.currentPage > this.totalPages) {
-                throw new Error(
-                    'page may be maximum the total number of pages'
-                );
-            }
+        end () {
+            let end = this.start + this.itemsPerPage;
 
-            let start = this.currentPage * this.itemsPerPage;
-            let end = start + this.itemsPerPage;
-
-            return {
-                start,
-                end,
-            };
+            return this.totalItems < end ? this.totalItems : end;
         },
 
         totalPages () {
-            if (this.totalItems < 0) {
-                throw new Error(
-                    'totalItems has to be positive'
-                );
-            }
-
-            if (this.itemsPerPage < 0) {
-                throw new Error(
-                    'itemsPerPage has to be positive'
-                );
-            }
-
             if (this.itemsPerPage === 0) {
                 return 0;
             }
@@ -140,115 +100,155 @@ export default {
             return Math.ceil(this.totalItems / this.itemsPerPage);
         },
 
-        oneBasedStart () {
-            return this.range.start + 1;
+        visiblePages () {
+            return this.maxVisiblePages > this.totalPages ? this.totalPages : this.maxVisiblePages;
         },
 
-        oneBasedEnd () {
-            let end = this.range.end;
+        pages () {
 
-            return this.totalItems < end ? this.totalItems : end;
+            let start = this.currentPage - (Math.ceil(this.visiblePages / 2) - 1);
+
+            if (start < 2) {
+                start = 2;
+            }
+
+            if (start + this.visiblePages > this.totalPages - 2) {
+                start -= ((start + this.visiblePages) - (this.totalPages - 2));
+            }
+
+            if (start < 2) {
+                start = 0;
+            }
+
+            let pages = [...Array(this.visiblePages).keys()].map(page => page + start);
+            let before = start !== 0 ? [0, start === 2 ? 1 : '...'] : [];
+            let after = start !== 0 ? [pages[pages.length - 1] === this.totalPages - 3 ? this.totalPages - 2 : '...', this.totalPages - 1] : [];
+
+            return [
+                this.currentPage - 1,
+                ...before,
+                ...pages,
+                ...after,
+                this.currentPage + 1,
+            ];
         },
 
         buttons () {
-            let buttons = this.visibleButtonValues.map(value => {
-                return value === '...'
-                    ? this.getButton(undefined, '...', '', false, true)
-                    : this.getButton(value);
+            return this.pages.map((page, key) => {
+                return {
+                    page,
+                    active: page === this.currentPage,
+                    disabled: this.disabled(page, key),
+                    html: this.html(page, key),
+                    title: this.title(key),
+                    loading: this.loading && page === this.currentPage,
+                };
             });
+        },
+    },
 
-            buttons.unshift(this.getButton(0));
-            buttons.unshift(
-                this.getButton(
-                    this.currentPage - 1,
-                    '<i class="fa fa-angle-double-left"></i>',
-                    'previous',
-                    this.currentPage === 0
-                )
-            );
-
-            buttons.push(this.getButton(this.totalPages - 1));
-            buttons.push(
-                this.getButton(
-                    this.currentPage + 1,
-                    '<i class="fa fa-angle-double-right"></i>',
-                    'next',
-                    this.currentPage === this.totalPages - 1
-                )
-            );
-
-            buttons.forEach(button => {
-                button.externalClasses = this.buttonClasses;
-            });
-
-            return buttons;
+    watch: {
+        totalItems: {
+            handler: 'validTotalItems',
+            immediate: true,
         },
 
-        visibleButtonValues () {
-            if (this.maxVisiblePages < 1) {
-                throw new Error(
-                    'maxVisiblePages has to be greater than 0'
-                );
-            }
+        itemsPerPage: {
+            handler: 'validItemsPerPage',
+            immediate: true,
+        },
 
-            let maxVisiblePagesWithoutActiveOne = this.maxVisiblePages - 1;
-            let diffWithThreeDot = (maxVisiblePagesWithoutActiveOne / 2) + 1;
-            let totalButtonsWithoutFirstLastNextAndPrevious = this.maxVisiblePages + 2;
+        maxVisiblePages: {
+            handler: 'validMaxVisiblePages',
+            immediate: true,
+        },
 
-            let startVisibleButton = this.currentPage - Math.floor(diffWithThreeDot);
-            if (startVisibleButton < 1) {
-                startVisibleButton = 1;
-            }
-
-            let endVisibleButton = startVisibleButton + totalButtonsWithoutFirstLastNextAndPrevious;
-            if (endVisibleButton > this.totalPages - 1) {
-                endVisibleButton = this.totalPages - 1;
-            }
-
-            if (endVisibleButton - startVisibleButton < totalButtonsWithoutFirstLastNextAndPrevious) {
-                startVisibleButton = endVisibleButton - totalButtonsWithoutFirstLastNextAndPrevious;
-                startVisibleButton = startVisibleButton < 1 ? 1 : startVisibleButton;
-            }
-
-            let visibleButtonValues = Array
-                .from(
-                    new Array(endVisibleButton - startVisibleButton),
-                    (value, index) => startVisibleButton + index
-                );
-
-            if (visibleButtonValues[0] > 1) {
-                visibleButtonValues[0] = '...';
-            }
-
-            if (visibleButtonValues[visibleButtonValues.length - 1] < this.totalPages - 2) {
-                visibleButtonValues[visibleButtonValues.length - 1] = '...';
-            }
-
-            return visibleButtonValues;
+        page: {
+            handler: 'pageChange',
+            immediate: true,
         },
     },
 
     methods: {
-        getButton (
-            page = undefined,
-            html = undefined,
-            title = undefined,
-            disabled = false,
-            dots = false
-        ) {
-            let button = new Button(page);
-            button.active = page === this.currentPage;
-            button.html = html;
-            button.title = title;
-            button.disabled = disabled;
-            button.dots = dots;
-
-            return button;
+        pageChange (page) {
+            if (page !== this.currentPage && this.validPage(page)) {
+                this.currentPage = page;
+                this.$emit('page-change', this.currentPage, this.start, this.end);
+            }
         },
 
-        pageChange (page) {
-            this.currentPage = page;
-            this.$emit('page-change', this.currentPage, this.range);
+        html (page, key) {
+            if (key === 0) {
+                return '<i class="fa fa-angle-left"></i>';
+            }
+
+            if (key === this.pages.length - 1) {
+                return '<i class="fa fa-angle-right"></i>';
+            }
+
+            if (page === '...') {
+                return page;
+            }
+
+            return (page + 1) + '';
+        },
+
+        disabled (page, key) {
+            return key === 0 && this.currentPage === 0 ||
+                key === this.pages.length - 1 && this.currentPage === this.totalPages - 1 ||
+                page === '...';
+        },
+
+        title (key) {
+            if (key === 0) {
+                return 'previous';
+            }
+
+            if (key === this.pages.length - 1) {
+                return 'next';
+            }
+
+            return '';
+        },
+
+        validPage (page) {
+            if (page < 0) {
+                throw new Error(
+                    'page has to be positive'
+                );
+            }
+
+            if (page >= this.totalPages) {
+                throw new Error(
+                    'page may be maximum the total number of pages minus one'
+                );
+            }
+
+            return true;
+        },
+
+        validTotalItems (totalItems) {
+            if (totalItems < 0) {
+                throw new Error(
+                    'totalItems has to be positive'
+                );
+            }
+        },
+
+        validItemsPerPage (itemsPerPage) {
+            if (itemsPerPage < 0) {
+                throw new Error(
+                    'itemsPerPage has to be positive'
+                );
+            }
+        },
+
+        validMaxVisiblePages (maxVisiblePages) {
+            if (maxVisiblePages < 1) {
+                throw new Error(
+                    'maxVisiblePages has to be greater than 0'
+                );
+            }
         },
     },
 };
