@@ -122,7 +122,7 @@ describe('VueAdsPagination', () => {
         expect(pagination.vm.pages).toEqual([-1, 0, 1, 1]);
     });
 
-    it('uses the slot for displaying the range', function () {
+    it('uses the slot for displaying the range', () => {
         const pagination = shallowMount(Pagination, {
             propsData: props,
             scopedSlots: {
@@ -137,7 +137,7 @@ describe('VueAdsPagination', () => {
 
 
 
-    it('uses the buttons slot for displaying the buttons', function () {
+    it('uses the buttons slot for displaying the buttons', () => {
         const pagination = shallowMount(Pagination, {
             propsData: props,
             scopedSlots: {
@@ -150,7 +150,7 @@ describe('VueAdsPagination', () => {
         expect(pagination.find('#buttons').text()).toEqual('-10123456...141');
     });
 
-    it('emits the current page, the start and end value on a click', function () {
+    it('emits the current page, the start and end value on a click', () => {
         pagination.vm.pageChange(1);
 
         expect(pagination.emitted()['page-change']).toBeTruthy();
@@ -161,7 +161,7 @@ describe('VueAdsPagination', () => {
         ]);
     });
 
-    it('emits the current page, the start and end value on creation', function () {
+    it('emits the current page, the start and end value on creation', () => {
         props.page = 3;
         const pagination = shallowMount(Pagination, {
             propsData: props,

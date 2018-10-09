@@ -14,13 +14,13 @@ describe('PageButton', () => {
         });
     });
 
-    it('emits a page change if the button has a page and is not active', function () {
+    it('emits a page change if the button has a page and is not active', () => {
         pageButton.trigger('click');
 
         expect(pageButton.emitted()['page-change']).toBeTruthy();
     });
 
-    it('doesn\'t emit a page change if the button has a page and is active', function () {
+    it('doesn\'t emit a page change if the button has a page and is active', () => {
         pageButton.setProps({
             active: true,
         });
@@ -29,7 +29,7 @@ describe('PageButton', () => {
         expect(pageButton.emitted()['page-change']).toBeUndefined();
     });
 
-    it('doesn\'t emit a page change if the button doesn\'t have a numeric page', function () {
+    it('doesn\'t emit a page change if the button doesn\'t have a numeric page', () => {
         pageButton.setProps({
             page: '...',
         });
@@ -38,7 +38,7 @@ describe('PageButton', () => {
         expect(pageButton.emitted()['page-change']).toBeUndefined();
     });
 
-    it('shows a loader when the page is active and the loading property is true', function () {
+    it('shows a loader when the page is active and the loading property is true', () => {
         pageButton.setProps({
             active: true,
             loading: true,
@@ -47,7 +47,7 @@ describe('PageButton', () => {
         expect(pageButton.find('i').is('i')).toBeTruthy();
     });
 
-    it('doesn\'t show a loader when the page is active and the loading property is false', function () {
+    it('doesn\'t show a loader when the page is active and the loading property is false', () => {
         pageButton.setProps({
             active: true,
             loading: false,
