@@ -2,15 +2,26 @@
     <div id="app">
         <vue-ads-pagination
             :total-items="200"
-            :max-visible-pages="4"
-            :page="3"
-            :detail-classes="['underline']"
-            :button-classes="buttonClasses"
-            :loading="true"
+            :max-visible-pages="5"
+            :page="page"
+            :loading="loading"
             @page-change="pageChange"
         >
             <template slot-scope="props">
-                Items {{ props.range.start }} tot {{ props.range.end }} van de {{ props.range.total }}
+                <div class="pr-2 leading-loose">
+                    Items {{ props.start }} tot {{ props.end }} van de {{ props.total }}
+                </div>
+            </template>
+            <template
+                slot="buttons"
+                slot-scope="props"
+            >
+                <vue-ads-page-button
+                    v-for="(button, key) in props.buttons"
+                    :key="key"
+                    v-bind="button"
+                    @page-change="page = button.page"
+                />
             </template>
         </vue-ads-pagination>
     </div>
@@ -19,28 +30,26 @@
 <script>
 import '../node_modules/@fortawesome/fontawesome-free/css/all.css';
 import VueAdsPagination from './components/Pagination';
+import VueAdsPageButton from './components/PageButton';
 
 export default {
     name: 'App',
 
     components: {
+        VueAdsPageButton,
         VueAdsPagination,
     },
 
     data () {
         return {
-            buttonClasses: {
-                default: ['border-none', 'bg-grey-lightest'],
-                active: ['bg-orange', 'border-none'],
-                dots: ['bg-white'],
-                disabled: ['bg-grey-light'],
-            },
+            page: 5,
+            loading: false,
         };
     },
 
     methods: {
-        pageChange (page, range) {
-            console.log(page, range);
+        pageChange (page, start, end) {
+            console.log(page, start, end);
         },
     },
 };

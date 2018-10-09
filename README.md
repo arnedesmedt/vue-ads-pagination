@@ -4,12 +4,10 @@ Vue ads pagination is a vue js pagination component.
 On the left side you find some information about the shown items.
 On the right side you can select a specific, the first, last, next or previous page.
 
-It uses the handy
-[tailwind](https://tailwindcss.com/docs/what-is-tailwind/) css library for styling.
+All the components can be overriden by your own components, 
+or you can add your own styles to the default components.
 
 ## Demo
-
-![Demo](https://media.giphy.com/media/1AfMQogZf9Y5ci8ck3/giphy.gif)
 
 I've written a demo in [JSFiddle](https://jsfiddle.net/arnedesmedt/18n9k6vm)
 
@@ -34,15 +32,26 @@ You can add the vue-ads-pagination component by using the following code in your
     <div id="app">
         <vue-ads-pagination
             :total-items="200"
-            :max-visible-pages="4"
-            :page="3"
+            :max-visible-pages="5"
+            :page="page"
+            :loading="loading"
             @page-change="pageChange"
-            :detail-classes="['underline']"
-            :button-classes="buttonClasses"
-            :loading="true"
         >
             <template slot-scope="props">
-                Items {{ props.range.start }} tot {{ props.range.end }} van de {{ props.range.total }}
+                <div class="pr-2 leading-loose">
+                    Items {{ props.start }} tot {{ props.end }} van de {{ props.total }}
+                </div>
+            </template>
+            <template
+                slot="buttons"
+                slot-scope="props"
+            >
+                <vue-ads-page-button
+                    v-for="(button, key) in props.buttons"
+                    :key="key"
+                    v-bind="button"
+                    @page-change="page = button.page"
+                />
             </template>
         </vue-ads-pagination>
     </div>
@@ -50,71 +59,114 @@ You can add the vue-ads-pagination component by using the following code in your
 
 <script>
 import VueAdsPagination from 'vue-ads-pagination';
+import { VueAdsPageButton } from 'vue-ads-pagination';
 
 export default {
-    name: 'app',
+    name: 'App',
+    
     components: {
         VueAdsPagination,
+        VueAdsPageButton,
     },
 
     data () {
         return {
-            'buttonClasses': {
-                'default': ['border-none', 'bg-grey-lightest'],
-                'active': ['bg-orange', 'border-none'],
-                'dots': ['bg-white'],
-                'disabled': ['bg-grey-light'],
-            },
+            loading: false,
+            page: 5,
         };
     },
 
     methods: {
-        pageChange (page, range) {
-            console.log(page, range);
+        pageChange (page, start, end) {
+            console.log(page, start, end);
         },
     },
 };
 </script>
 ```
 
-### Properties
+### Components
+
+#### VueAdsPagination
+
+##### Properties
 
 - `page`: *(type: number, default: 0)* A zero-based number to set the page.
-- `itemsPerPage`: *(type: number, default: 10)* The max amount of items on one page.
-- `maxVisiblePages`: *(type: number, default: 5)* The number of pages to be visible if their are too many pages.
-- `totalItems`: *(type: number, required)* The total amount of items.
+- `items-per-page`: *(type: number, default: 10)* The maximum amount of items on one page.
+- `max-visible-pages`: *(type: number, default: 5)* The maximum number of pages to be visible if their are too many pages.
+- `total-items`: *(type: number, required)* The total amount of items.
 - `loading`: *(type: boolean, default: false)* Indicates if the current page is loading.
-- `detailClasses`: *(type: array)* A list of (tailwind) classes you can add to change the detail box ui.
-- `buttonClasses`: *(type: object)* An object to change the buttons ui for each state:
-    - `default`: *(type: array)* A list of (tailwind) classes you can add to change the ui of the default button. These classes are added on all buttons.
-    - `active`: *(type: array)* A list of (tailwind) classes you can add to change the ui of the active button.
-    - `disabled`: *(type: array)* A list of (tailwind) classes you can add to change the ui of the disabled button.
-    - `dots`: *(type: array)* A list of (tailwind) classes you can add to change the ui of the dots.
 
-### Events
+##### Events
 
 - `page-change`: Emitted on creation, to know the initial state, and if another page is clicked. It contains the following parameters:
     - `page`: *(type: number)* The zero-based current page.
-    - `range`: *(type: object)* Object with the following parameters:
-        - `start`: *(type: number)* A zero-based number to identify the first item.
-        - `end`: *(type: number)* A zero-based number to identify the last item.
+    - `start`: *(type: number)* A zero-based number to identify the first item.
+    - `end`: *(type: number)* A zero-based number to identify the last item.
         
-### Templates
+##### Templates
 
-#### Default
+###### Default
 
 You can add a default template to use a custom pagination detail box.
-The scope contains only one variable: the range object. It contains three parameters:
+The scope contains 3 variables:
 
-- `start`: *(type: number)* The one-based start item.
-- `end`: *(type: number)* The one-based end item.
-- `total`: *(type: number)* The total number of available items.
+- `start`: *(type: number)* The included start item.
+- `end`: *(type: number)* The included end item.
+- `total`: *(type: number)* The total number of visible items.
 
 ```vue
 <template slot-scope="props">
-    {{ props.range.start }} - {{ props.range.end }} : Total {{ props.range.total }}
+    {{ props.start }} - {{ props.end }} : Total {{ props.total }}
 </template>
 ```
+
+###### Buttons
+
+If you want to use your own buttons, control their behaviour our style them in a different way.
+You can create your own button component and loop over it in this slot or use the predefined VueAdsPageButton.
+This is a scoped slot that contains an array of buttons.
+
+- `buttons`: *(type: Array)* A list of all buttons currently used. One button is an object that contains the following attributes:
+    - `page`: *(type: number||string)* This is the zero based page or the string '...'. 
+    Note that the value of this attribute for the next and previous icons is calculated by the current page.
+    If the current page is 2, the previous page will be 1 and the next page is 3.
+    - `active`: *(type: boolean)* Is the current page active?
+    - `disabled`: *(type: boolean)* Is the current button disabled?
+    - `html`: *(type: string)* This string is shown in the button. So you can use icons for the previous and next button.
+    - `title`: *(type: string)* If you want to add a title to the button, you can fill this attribute.
+    - `loading`: *(type: string)* Indicates if the button has to show a loading icon.    
+
+```vue
+<template
+    slot="buttons"
+    slot-scope="props"
+>
+    <vue-ads-page-button
+        v-for="(button, key) in props.buttons"
+        :key="key"
+        v-bind="button"
+        @page-change="page = button.page"
+    />
+</template>
+```
+
+#### VueAdsPageButton
+
+This is the default button. If you want to add extra classes. Add the template above and add the class attribute.
+
+##### Properties
+
+- `page`: *(type: number||string, default: 0)* A zero-based number that represents the page or '...'.
+- `active`: *(type: boolean)* Is the current button active?
+- `disabled`: *(type: boolean)* Is the current button disabled?
+- `html`: *(type: string)* This string is shown in the button.
+- `title`: *(type: string)* If you want to add a title to the button, you can fill this attribute.
+- `loading`: *(type: string)* Indicates if the button has to show a loading icon.
+
+##### Events
+
+- `page-change`: Emitted when the button is clicked.
 
 ## Testing
 
