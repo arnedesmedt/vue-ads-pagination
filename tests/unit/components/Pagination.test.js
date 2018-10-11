@@ -19,13 +19,8 @@ describe('VueAdsPagination', () => {
         });
     });
 
-    it('throws an error if the page is negative', () => {
-        expect(() => {
-            props.page = -1;
-            pagination = shallowMount(Pagination, {
-                propsData: props,
-            });
-        }).toThrow('page has to be positive');
+    it('does not allow negative pages', () => {
+        expect(pagination.vm.$options.props.page.validator(-1)).toBeFalsy();
     });
 
     it('throws an error if the page is greater than the totalPages', () => {
@@ -38,33 +33,17 @@ describe('VueAdsPagination', () => {
     });
 
 
-    it('throws an error if the totalItems is negative', () => {
-        expect(() => {
-            props.totalItems = -1;
-            pagination = shallowMount(Pagination, {
-                propsData: props,
-            });
-        }).toThrow('totalItems has to be positive');
+    it('does not allow negative totalItems', () => {
+        expect(pagination.vm.$options.props.totalItems.validator(-1)).toBeFalsy();
+    });
+
+    it('does not allow negative itemsPerPage', () => {
+        expect(pagination.vm.$options.props.itemsPerPage.validator(-1)).toBeFalsy();
     });
 
 
-    it('throws an error if the itemsPerPage is negative', () => {
-        expect(() => {
-            props.itemsPerPage = -1;
-            pagination = shallowMount(Pagination, {
-                propsData: props,
-            });
-        }).toThrow('itemsPerPage has to be positive');
-    });
-
-
-    it('throws an error if the maxVisiblePages is negative', () => {
-        expect(() => {
-            props.maxVisiblePages = -1;
-            pagination = shallowMount(Pagination, {
-                propsData: props,
-            });
-        }).toThrow('maxVisiblePages has to be greater than 0');
+    it('does not allow negative maxVisiblePages', () => {
+        expect(pagination.vm.$options.props.maxVisiblePages.validator(-1)).toBeFalsy();
     });
 
     it('calculates the correct start and end', () => {
