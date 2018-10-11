@@ -49,23 +49,35 @@ export default {
             type: Number,
             required: false,
             default: 0,
+            validator: (value) => {
+                return value >= 0;
+            },
         },
 
         itemsPerPage: {
             type: Number,
             required: false,
             default: 10,
+            validator: (value) => {
+                return value > 0;
+            },
         },
 
         maxVisiblePages: {
             type: Number,
             required: false,
             default: 5,
+            validator: (value) => {
+                return value > 0;
+            },
         },
 
         totalItems: {
             type: Number,
             required: true,
+            validator: (value) => {
+                return value >= 0;
+            },
         },
 
         loading: {
@@ -148,21 +160,6 @@ export default {
     },
 
     watch: {
-        totalItems: {
-            handler: 'validTotalItems',
-            immediate: true,
-        },
-
-        itemsPerPage: {
-            handler: 'validItemsPerPage',
-            immediate: true,
-        },
-
-        maxVisiblePages: {
-            handler: 'validMaxVisiblePages',
-            immediate: true,
-        },
-
         page: {
             handler: 'pageChange',
             immediate: true,
@@ -212,12 +209,6 @@ export default {
         },
 
         validPage (page) {
-            if (page < 0) {
-                throw new Error(
-                    'page has to be positive'
-                );
-            }
-
             if (page >= this.totalPages) {
                 throw new Error(
                     'page may be maximum the total number of pages minus one'
@@ -225,30 +216,6 @@ export default {
             }
 
             return true;
-        },
-
-        validTotalItems (totalItems) {
-            if (totalItems < 0) {
-                throw new Error(
-                    'totalItems has to be positive'
-                );
-            }
-        },
-
-        validItemsPerPage (itemsPerPage) {
-            if (itemsPerPage < 0) {
-                throw new Error(
-                    'itemsPerPage has to be positive'
-                );
-            }
-        },
-
-        validMaxVisiblePages (maxVisiblePages) {
-            if (maxVisiblePages < 1) {
-                throw new Error(
-                    'maxVisiblePages has to be greater than 0'
-                );
-            }
         },
     },
 };
