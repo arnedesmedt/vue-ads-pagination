@@ -1,6 +1,6 @@
 {
   "name": "vue-ads-pagination",
-  "version": "2.0.1",
+  "version": "2.0.2",
   "private": false,
   "main": "./dist/vue-ads-pagination.common.js",
   "description": "A Vue pagination plugin.",
