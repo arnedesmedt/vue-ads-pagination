@@ -3,7 +3,6 @@
         :class="buttonClasses"
         :disabled="disabled"
         :title="title"
-        class="focus:outline-none ml-1 leading-normal w-6"
         @click="pageChange"
     >
         <i
@@ -55,11 +54,25 @@ export default {
             required: false,
             default: false,
         },
+
+        disableStyling: {
+            type: Boolean,
+            required: false,
+            default: false,
+        },
     },
 
     computed: {
         buttonClasses () {
+            if (this.disableStyling)  {
+                return {};
+            }
+
             return {
+                'focus:outline-none': true,
+                'ml-1': true,
+                'leading-normal': true,
+                'w-6': true,
                 'bg-teal-dark': this.active,
                 'text-white': this.active,
                 'cursor-default': this.active || this.disabled,

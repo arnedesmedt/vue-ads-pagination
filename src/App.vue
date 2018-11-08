@@ -20,6 +20,7 @@
                     v-for="(button, key) in props.buttons"
                     :key="key"
                     v-bind="button"
+                    :disable-styling="true"
                     @page-change="page = button.page"
                 />
             </template>
