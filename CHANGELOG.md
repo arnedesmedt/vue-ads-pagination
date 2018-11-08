@@ -1,5 +1,9 @@
 ## Changelog
 
+#### v2.0.1 - 08/11/2018
+
+- Add a disable-styling property on the VueAdsPageButton to remove all stylings on the button.
+
 #### v2.0.0 - 09/10/2018
 
 - Small rewrite of the paginator:

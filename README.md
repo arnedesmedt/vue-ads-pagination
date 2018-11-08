@@ -135,7 +135,7 @@ This is a scoped slot that contains an array of buttons.
     - `disabled`: *(type: boolean)* Is the current button disabled?
     - `html`: *(type: string)* This string is shown in the button. So you can use icons for the previous and next button.
     - `title`: *(type: string)* If you want to add a title to the button, you can fill this attribute.
-    - `loading`: *(type: string)* Indicates if the button has to show a loading icon.    
+    - `loading`: *(type: boolean)* Indicates if the button has to show a loading icon.    
 
 ```vue
 <template
@@ -158,11 +158,13 @@ This is the default button. If you want to add extra classes. Add the template a
 ##### Properties
 
 - `page`: *(type: number||string, default: 0)* A zero-based number that represents the page or '...'.
-- `active`: *(type: boolean)* Is the current button active?
-- `disabled`: *(type: boolean)* Is the current button disabled?
-- `html`: *(type: string)* This string is shown in the button.
-- `title`: *(type: string)* If you want to add a title to the button, you can fill this attribute.
-- `loading`: *(type: string)* Indicates if the button has to show a loading icon.
+- `active`: *(type: boolean, default: false)* Is the current button active?
+- `disabled`: *(type: boolean, default: false)* Is the current button disabled?
+- `html`: *(type: string, required)* This string is shown in the button.
+- `title`: *(type: string, default: '')* If you want to add a title to the button, you can fill this attribute.
+- `loading`: *(type: boolean, default: false)* Indicates if the button has to show a loading icon.
+- `disable-styling`: *(type: boolean, default: false)* Remove all styling classes.
+
 
 ##### Events
 
