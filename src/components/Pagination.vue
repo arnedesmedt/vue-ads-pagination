@@ -1,7 +1,7 @@
 <template>
     <div
         v-if="totalPages > 0"
-        class="flex m-2 px-0 text-xs"
+        class="ads-flex ads-m-2 ads-px-0 ads-text-xs"
     >
         <slot
             :start="start + 1"
@@ -9,14 +9,14 @@
             :total="totalItems"
         >
             <div
-                class="pr-2 leading-loose"
+                class="ads-pr-2 ads-leading-loose"
             >
                 {{ start + 1 }} - {{ end }} of {{ totalItems }} items
             </div>
         </slot>
         <div
             v-if="totalPages > 1"
-            class="flex-grow flex justify-end"
+            class="ads-flex-grow ads-flex ads-justify-end"
         >
             <slot
                 :buttons="buttons"

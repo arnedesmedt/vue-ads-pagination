@@ -69,16 +69,16 @@ export default {
             }
 
             return {
-                'focus:outline-none': true,
-                'ml-1': true,
-                'leading-normal': true,
-                'w-6': true,
-                'bg-teal-dark': this.active,
-                'text-white': this.active,
-                'cursor-default': this.active || this.disabled,
-                'bg-grey-light': this.disabled && this.page !== '...',
-                'text-grey': this.disabled && this.page !== '...',
-                'hover:bg-grey-lighter': !this.active && !this.disabled,
+                'focus:ads-outline-none': true,
+                'ads-ml-1': true,
+                'ads-leading-normal': true,
+                'ads-w-6': true,
+                'ads-bg-teal-dark': this.active,
+                'ads-text-white': this.active,
+                'ads-cursor-default': this.active || this.disabled,
+                'ads-bg-grey-light': this.disabled && this.page !== '...',
+                'ads-text-grey': this.disabled && this.page !== '...',
+                'hover:ads-bg-grey-lighter': !this.active && !this.disabled,
             };
         },
     },

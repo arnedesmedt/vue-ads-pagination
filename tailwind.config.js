@@ -917,7 +917,7 @@ module.exports = {
   */
 
     options: {
-        prefix: '',
+        prefix: 'ads-',
         important: false,
         separator: ':',
     },

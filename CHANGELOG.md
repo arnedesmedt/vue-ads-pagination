@@ -1,6 +1,10 @@
 ## Changelog
 
-#### v2.0.1 - 08/11/2018
+#### v2.0.3 - 08/11/2018
+
+- Prefix the tailwind classes with `ads-`.
+
+#### v2.0.2 - 08/11/2018
 
 - Add a disable-styling property on the VueAdsPageButton to remove all stylings on the button.
 

@@ -8,7 +8,7 @@
             @page-change="pageChange"
         >
             <template slot-scope="props">
-                <div class="pr-2 leading-loose">
+                <div class="ads-pr-2 ads-leading-loose">
                     Items {{ props.start }} tot {{ props.end }} van de {{ props.total }}
                 </div>
             </template>
@@ -20,7 +20,6 @@
                     v-for="(button, key) in props.buttons"
                     :key="key"
                     v-bind="button"
-                    :disable-styling="true"
                     @page-change="page = button.page"
                 />
             </template>

@@ -5,8 +5,8 @@ module.exports = {
         '@fullhuman/postcss-purgecss': {
             content: ['./src/components/*.vue'],
             whitelistPatterns: [
-                /^focus\:outline-none$/,
-                /^hover\:bg-grey-lighter$/,
+                /^focus\:ads-outline-none$/,
+                /^hover\:ads-bg-grey-lighter$/,
             ],
         },
         'postcss-import': {},
