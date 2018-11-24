@@ -69,16 +69,16 @@ export default {
             }
 
             return {
-                'focus:ads-outline-none': true,
-                'ads-ml-1': true,
-                'ads-leading-normal': true,
-                'ads-w-6': true,
-                'ads-bg-teal-dark': this.active,
-                'ads-text-white': this.active,
-                'ads-cursor-default': this.active || this.disabled,
-                'ads-bg-grey-light': this.disabled && this.page !== '...',
-                'ads-text-grey': this.disabled && this.page !== '...',
-                'hover:ads-bg-grey-lighter': !this.active && !this.disabled,
+                'focus:vue-ads-outline-none': true,
+                'vue-ads-ml-1': true,
+                'vue-ads-leading-normal': true,
+                'vue-ads-w-6': true,
+                'vue-ads-bg-teal-dark': this.active,
+                'vue-ads-text-white': this.active,
+                'vue-ads-cursor-default': this.active || this.disabled,
+                'vue-ads-bg-grey-light': this.disabled && this.page !== '...',
+                'vue-ads-text-grey': this.disabled && this.page !== '...',
+                'hover:vue-ads-bg-grey-lighter': !this.active && !this.disabled,
             };
         },
     },

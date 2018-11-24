@@ -38,7 +38,7 @@ You can add the vue-ads-pagination component by using the following code in your
             @page-change="pageChange"
         >
             <template slot-scope="props">
-                <div class="ads-pr-2 ads-leading-loose">
+                <div class="vue-ads-pr-2 vue-ads-leading-loose">
                     Items {{ props.start }} tot {{ props.end }} van de {{ props.total }}
                 </div>
             </template>
