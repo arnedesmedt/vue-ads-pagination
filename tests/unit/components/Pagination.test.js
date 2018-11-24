@@ -120,8 +120,8 @@ describe('VueAdsPagination', () => {
         const pagination = shallowMount(Pagination, {
             propsData: props,
             scopedSlots: {
-                buttons: '<div id="buttons" slot="buttons" slot-scope="props">' +
-                '<span v-for="(button,key) in props.buttons">{{ button.page }}</span>' +
+                buttons: '<div id="buttons" slot-scope="props">' +
+                '<span v-for=\'(button,key) in props.buttons\'>{{ button.page }}</span>' +
                 '</div>',
             },
         });
