@@ -1,7 +1,7 @@
 <template>
     <div
         v-if="totalPages > 0"
-        class="ads-flex ads-m-2 ads-px-0 ads-text-xs"
+        class="vue-ads-flex vue-ads-m-2 vue-ads-px-0 vue-ads-text-xs"
     >
         <slot
             :start="start + 1"
@@ -9,14 +9,14 @@
             :total="totalItems"
         >
             <div
-                class="ads-pr-2 ads-leading-loose"
+                class="vue-ads-pr-2 vue-ads-leading-loose"
             >
                 {{ start + 1 }} - {{ end }} of {{ totalItems }} items
             </div>
         </slot>
         <div
             v-if="totalPages > 1"
-            class="ads-flex-grow ads-flex ads-justify-end"
+            class="vue-ads-flex-grow vue-ads-flex vue-ads-justify-end"
         >
             <slot
                 :buttons="buttons"
@@ -49,8 +49,8 @@ export default {
             type: Number,
             required: false,
             default: 0,
-            validator: (value) => {
-                return value >= 0;
+            validator: (page) => {
+                return page >= 0;
             },
         },
 
@@ -58,8 +58,8 @@ export default {
             type: Number,
             required: false,
             default: 10,
-            validator: (value) => {
-                return value > 0;
+            validator: (itemsPerPage) => {
+                return itemsPerPage > 0;
             },
         },
 
@@ -67,16 +67,16 @@ export default {
             type: Number,
             required: false,
             default: 5,
-            validator: (value) => {
-                return value > 0;
+            validator: (maxVisiblePages) => {
+                return maxVisiblePages > 0;
             },
         },
 
         totalItems: {
             type: Number,
             required: true,
-            validator: (value) => {
-                return value >= 0;
+            validator: (totalItems) => {
+                return totalItems >= 0;
             },
         },
 
