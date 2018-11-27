@@ -79,17 +79,6 @@ describe('VueAdsPagination', () => {
         expect(pagination.vm.totalPages).toBe(15);
     });
 
-    it('returns the correct visiblePages if their are more pages then maxVisiblePages', () => {
-        expect(pagination.vm.visiblePages).toBe(5);
-    });
-
-    it('returns the correct visiblePages if their are less pages then maxVisiblePages', () => {
-        pagination.setProps({
-            totalItems: 10,
-        });
-        expect(pagination.vm.visiblePages).toBe(1);
-    });
-
     it('returns the correct pages if their are more pages then maxVisiblePages', () => {
         expect(pagination.vm.pages).toEqual([-1, 0, 1, 2, 3, 4, 5, 6, '...', 14, 1]);
     });
