@@ -1,5 +1,9 @@
 ## Changelog
 
+#### v2.0.5 - 27/11/2018
+
+- Not all pages were shown properly. Fixed it.
+
 #### v2.0.4 - 24/11/2018
 
 - Prefix the tailwind classes with `vue-ads-`.

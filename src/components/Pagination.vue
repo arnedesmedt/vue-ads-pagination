@@ -112,37 +112,45 @@ export default {
             return Math.ceil(this.totalItems / this.itemsPerPage);
         },
 
-        visiblePages () {
-            return this.maxVisiblePages > this.totalPages ? this.totalPages : this.maxVisiblePages;
-        },
-
         pages () {
-
-            let start = this.currentPage - (Math.ceil(this.visiblePages / 2) - 1);
-
-            if (start < 2) {
-                start = 2;
-            }
-
-            if (start + this.visiblePages > this.totalPages - 2) {
-                start -= ((start + this.visiblePages) - (this.totalPages - 2));
-            }
-
-            if (start < 2) {
-                start = 0;
-            }
-
-            let pages = [...Array(this.visiblePages).keys()].map(page => page + start);
-            let before = start !== 0 ? [0, start === 2 ? 1 : '...'] : [];
-            let after = start !== 0 ? [pages[pages.length - 1] === this.totalPages - 3 ? this.totalPages - 2 : '...', this.totalPages - 1] : [];
+            let filteredPages = this.filteredPages;
+            let pages = filteredPages ?
+                [
+                    filteredPages[0] - 1 === 1 ? 1 : '...',
+                    ...filteredPages,
+                    filteredPages[filteredPages.length - 1] + 1 === this.totalPages - 2 ? this.totalPages - 2 : '...',
+                ] :
+                [...Array(this.totalPages - 2).keys()].map(page => page + 1);
 
             return [
                 this.currentPage - 1,
-                ...before,
+                0,
                 ...pages,
-                ...after,
+                this.totalPages - 1,
                 this.currentPage + 1,
             ];
+        },
+
+        filteredPages () {
+            let diff = this.maxVisiblePages / 2;
+            let toFilterPages = [...Array(this.totalPages).keys()].slice(2, -2);
+
+            if (toFilterPages.length > this.maxVisiblePages) {
+                let diffFirst = this.currentPage - toFilterPages[0];
+                let diffLast = this.currentPage - toFilterPages[toFilterPages.length - 1];
+
+                if (diffFirst < diff) {
+                    return toFilterPages.slice(0, this.maxVisiblePages);
+                } else if (diffLast >= -diff) {
+                    return toFilterPages.slice(-this.maxVisiblePages);
+                } else {
+                    return toFilterPages.filter(page => {
+                        let diffPage = this.currentPage - page;
+
+                        return diffPage < 0 ? Math.abs(diffPage) <= diff : diffPage < diff;
+                    });
+                }
+            }
         },
 
         buttons () {
