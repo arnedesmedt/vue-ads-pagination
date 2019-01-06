@@ -25,6 +25,7 @@
 </template>
 
 <script>
+import './assets/css/tailwind.css';
 import '../node_modules/@fortawesome/fontawesome-free/css/all.css';
 import VueAdsPagination from './components/Pagination';
 import VueAdsPageButton from './components/PageButton';
