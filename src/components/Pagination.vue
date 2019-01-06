@@ -34,7 +34,6 @@
 </template>
 
 <script>
-import '../assets/css/tailwind.css';
 import VueAdsPageButton from './PageButton';
 
 export default {
