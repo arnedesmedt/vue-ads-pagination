@@ -1,5 +1,11 @@
 ## Changelog
 
+#### v2.1.1 - 14/01/2019
+
+- Split the page-change event in a page-change event and a range-change event: 
+If you dont have a second page by default and you're adding items, then the external end variable won't change
+because no page-change event was triggered. This is now solved via the range-change event.
+
 #### v2.0.5 - 27/11/2018
 
 - Not all pages were shown properly. Fixed it.
