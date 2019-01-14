@@ -135,28 +135,77 @@ describe('VueAdsPagination', () => {
         expect(pagination.find('#buttons').text()).toEqual('-10123456...141');
     });
 
-    it('emits the current page, the start and end value on a click', () => {
-        pagination.vm.pageChange(1);
-
-        expect(pagination.emitted()['page-change']).toBeTruthy();
-        expect(pagination.emitted()['page-change'][1]).toEqual([
-            1,
-            10,
-            20,
-        ]);
-    });
-
-    it('emits the current page, the start and end value on creation', () => {
-        props.page = 3;
-        const pagination = shallowMount(Pagination, {
-            propsData: props,
+    it('emits the current page, the start and end value', () => {
+        pagination.setProps({
+            page: 2,
         });
 
         expect(pagination.emitted()['page-change']).toBeTruthy();
-        expect(pagination.emitted()['page-change'][0]).toEqual([
-            3,
+        expect(pagination.emitted()['page-change'][1]).toEqual([
+            2,
+        ]);
+
+        expect(pagination.emitted()['range-change']).toBeTruthy();
+        expect(pagination.emitted()['range-change'][1]).toEqual([
+            20,
             30,
-            40,
+        ]);
+    });
+
+    it('adds a loading icon on the active page', () => {
+        pagination.setProps({
+            page: 2,
+            loading: true,
+        });
+
+        expect(pagination.vm.buttons[3].loading).toBeTruthy();
+    });
+
+    it('set the end variable not to the page end if the page is not fully filled', () => {
+        pagination.setProps({
+            totalItems: 8,
+        });
+
+        expect(pagination.vm.end).toBe(8);
+    });
+
+    it('has a page in the middle', () => {
+        pagination.setProps({
+            page: 8,
+        });
+
+        expect(pagination.vm.pages).toEqual([
+            7,
+            0,
+            '...',
+            6,
+            7,
+            8,
+            9,
+            10,
+            '...',
+            14,
+            9,
+        ]);
+    });
+
+    it('has a page in the end', () => {
+        pagination.setProps({
+            page: 13,
+        });
+
+        expect(pagination.vm.pages).toEqual([
+            12,
+            0,
+            '...',
+            8,
+            9,
+            10,
+            11,
+            12,
+            13,
+            14,
+            14,
         ]);
     });
 });

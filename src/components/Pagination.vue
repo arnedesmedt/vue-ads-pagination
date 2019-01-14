@@ -167,6 +167,7 @@ export default {
     watch: {
         page: {
             handler: 'pageChange',
+            immediate: true,
         },
 
         start: {

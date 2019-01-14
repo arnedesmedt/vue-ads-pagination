@@ -29,6 +29,15 @@ describe('PageButton', () => {
         expect(pageButton.emitted()['page-change']).toBeUndefined();
     });
 
+    it('doesn\'t emit a page change if the button is disabled', () => {
+        pageButton.setProps({
+            disabled: true,
+        });
+        pageButton.trigger('click');
+
+        expect(pageButton.emitted()['page-change']).toBeUndefined();
+    });
+
     it('doesn\'t emit a page change if the button doesn\'t have a numeric page', () => {
         pageButton.setProps({
             page: '...',
@@ -54,5 +63,13 @@ describe('PageButton', () => {
         });
 
         expect(pageButton.find('span').is('span')).toBeTruthy();
+    });
+
+    it('doesn\'t add styling if the styling is disabled', () => {
+        pageButton.setProps({
+            disableStyling: true,
+        });
+
+        expect(pageButton.vm.buttonClasses).toEqual({});
     });
 });
