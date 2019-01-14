@@ -1,6 +1,6 @@
 {
   "name": "vue-ads-pagination",
-  "version": "2.0.5",
+  "version": "2.1.0",
   "private": false,
   "main": "./dist/vue-ads-pagination.common.js",
   "description": "A Vue pagination plugin.",
@@ -19,6 +19,8 @@
   },
   "dependencies": {
     "@fortawesome/fontawesome-free": "^5.5.0",
+    "eslint-config-ads": "^1.0.7",
+    "prettier-package-json": "^2.0.1",
     "vue": "^2.5.17"
   },
   "devDependencies": {
@@ -36,11 +38,6 @@
     "tailwindcss": "^0.6.6",
     "vue-template-compiler": "^2.5.17"
   },
-  "browserslist": [
-    "> 1%",
-    "last 2 versions",
-    "not ie <= 8"
-  ],
   "repository": {
     "type": "git",
     "url": "https://github.com/arnedesmedt/vue-ads-pagination.git"

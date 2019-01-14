@@ -419,7 +419,9 @@ module.exports = {
   |
   */
 
-    borderColors: global.Object.assign({ default: colors['grey-light'] }, colors),
+    borderColors: global.Object.assign({
+        default: colors['grey-light'], 
+    }, colors),
 
 
     /*
@@ -836,51 +838,142 @@ module.exports = {
   */
 
     modules: {
-        appearance: ['responsive'],
-        backgroundAttachment: ['responsive'],
-        backgroundColors: ['responsive', 'hover'],
-        backgroundPosition: ['responsive'],
-        backgroundRepeat: ['responsive'],
-        backgroundSize: ['responsive'],
-        borderColors: ['responsive', 'hover'],
-        borderRadius: ['responsive'],
-        borderStyle: ['responsive'],
-        borderWidths: ['responsive'],
-        cursor: ['responsive'],
-        display: ['responsive'],
-        flexbox: ['responsive'],
-        float: ['responsive'],
-        fonts: ['responsive'],
-        fontWeights: ['responsive', 'hover'],
-        height: ['responsive'],
-        leading: ['responsive'],
-        lists: ['responsive'],
-        margin: ['responsive'],
-        maxHeight: ['responsive'],
-        maxWidth: ['responsive'],
-        minHeight: ['responsive'],
-        minWidth: ['responsive'],
-        negativeMargin: ['responsive'],
-        opacity: ['responsive'],
-        overflow: ['responsive'],
-        padding: ['responsive'],
-        pointerEvents: ['responsive'],
-        position: ['responsive'],
-        resize: ['responsive'],
-        shadows: ['responsive'],
+        appearance: [
+            'responsive',
+        ],
+        backgroundAttachment: [
+            'responsive',
+        ],
+        backgroundColors: [
+            'responsive',
+            'hover',
+        ],
+        backgroundPosition: [
+            'responsive',
+        ],
+        backgroundRepeat: [
+            'responsive',
+        ],
+        backgroundSize: [
+            'responsive',
+        ],
+        borderColors: [
+            'responsive',
+            'hover',
+        ],
+        borderRadius: [
+            'responsive',
+        ],
+        borderStyle: [
+            'responsive',
+        ],
+        borderWidths: [
+            'responsive',
+        ],
+        cursor: [
+            'responsive',
+        ],
+        display: [
+            'responsive',
+        ],
+        flexbox: [
+            'responsive',
+        ],
+        float: [
+            'responsive',
+        ],
+        fonts: [
+            'responsive',
+        ],
+        fontWeights: [
+            'responsive',
+            'hover',
+        ],
+        height: [
+            'responsive',
+        ],
+        leading: [
+            'responsive',
+        ],
+        lists: [
+            'responsive',
+        ],
+        margin: [
+            'responsive',
+        ],
+        maxHeight: [
+            'responsive',
+        ],
+        maxWidth: [
+            'responsive',
+        ],
+        minHeight: [
+            'responsive',
+        ],
+        minWidth: [
+            'responsive',
+        ],
+        negativeMargin: [
+            'responsive',
+        ],
+        opacity: [
+            'responsive',
+        ],
+        overflow: [
+            'responsive',
+        ],
+        padding: [
+            'responsive',
+        ],
+        pointerEvents: [
+            'responsive',
+        ],
+        position: [
+            'responsive',
+        ],
+        resize: [
+            'responsive',
+        ],
+        shadows: [
+            'responsive',
+        ],
         svgFill: [],
         svgStroke: [],
-        textAlign: ['responsive'],
-        textColors: ['responsive', 'hover'],
-        textSizes: ['responsive'],
-        textStyle: ['responsive', 'hover'],
-        tracking: ['responsive'],
-        userSelect: ['responsive'],
-        verticalAlign: ['responsive'],
-        visibility: ['responsive'],
-        whitespace: ['responsive'],
-        width: ['responsive'],
-        zIndex: ['responsive'],
+        textAlign: [
+            'responsive',
+        ],
+        textColors: [
+            'responsive',
+            'hover',
+        ],
+        textSizes: [
+            'responsive',
+        ],
+        textStyle: [
+            'responsive',
+            'hover',
+        ],
+        tracking: [
+            'responsive',
+        ],
+        userSelect: [
+            'responsive',
+        ],
+        verticalAlign: [
+            'responsive',
+        ],
+        visibility: [
+            'responsive',
+        ],
+        whitespace: [
+            'responsive',
+        ],
+        width: [
+            'responsive',
+        ],
+        zIndex: [
+            'responsive',
+        ],
     },
 
 

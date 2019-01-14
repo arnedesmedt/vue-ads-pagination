@@ -58,8 +58,10 @@ You can add the vue-ads-pagination component by using the following code in your
 </template>
 
 <script>
-import VueAdsPagination from 'vue-ads-pagination';
-import { VueAdsPageButton } from 'vue-ads-pagination';
+import '../node_modules/@fortawesome/fontawesome-free/css/all.css';
+import '../node_modules/vue-ads-pagination/dist/vue-ads-pagination.css';
+
+import VueAdsPagination, { VueAdsPageButton } from 'vue-ads-pagination';
 
 export default {
     name: 'App',

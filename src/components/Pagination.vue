@@ -26,7 +26,7 @@
                     v-for="(button, key) in buttons"
                     :key="key"
                     v-bind="button"
-                    @page-change="pageChange(button.page)"
+                    @page-change="$emit('page-change', button.page)"
                 />
             </slot>
         </div>
@@ -34,7 +34,6 @@
 </template>
 
 <script>
-import '../assets/css/tailwind.css';
 import VueAdsPageButton from './PageButton';
 
 export default {
@@ -87,15 +86,9 @@ export default {
         },
     },
 
-    data () {
-        return {
-            currentPage: null,
-        };
-    },
-
     computed: {
         start () {
-            return this.currentPage * this.itemsPerPage;
+            return this.page * this.itemsPerPage;
         },
 
         end () {
@@ -120,24 +113,28 @@ export default {
                     ...filteredPages,
                     filteredPages[filteredPages.length - 1] + 1 === this.totalPages - 2 ? this.totalPages - 2 : '...',
                 ] :
-                [...Array(this.totalPages - 2).keys()].map(page => page + 1);
+                [
+                    ...Array(this.totalPages - 2).keys(),
+                ].map(page => page + 1);
 
             return [
-                this.currentPage - 1,
+                this.page - 1,
                 0,
                 ...pages,
                 this.totalPages - 1,
-                this.currentPage + 1,
+                this.page + 1,
             ];
         },
 
         filteredPages () {
             let diff = this.maxVisiblePages / 2;
-            let toFilterPages = [...Array(this.totalPages).keys()].slice(2, -2);
+            let toFilterPages = [
+                ...Array(this.totalPages).keys(),
+            ].slice(2, -2);
 
             if (toFilterPages.length > this.maxVisiblePages) {
-                let diffFirst = this.currentPage - toFilterPages[0];
-                let diffLast = this.currentPage - toFilterPages[toFilterPages.length - 1];
+                let diffFirst = this.page - toFilterPages[0];
+                let diffLast = this.page - toFilterPages[toFilterPages.length - 1];
 
                 if (diffFirst < diff) {
                     return toFilterPages.slice(0, this.maxVisiblePages);
@@ -145,7 +142,7 @@ export default {
                     return toFilterPages.slice(-this.maxVisiblePages);
                 } else {
                     return toFilterPages.filter(page => {
-                        let diffPage = this.currentPage - page;
+                        let diffPage = this.page - page;
 
                         return diffPage < 0 ? Math.abs(diffPage) <= diff : diffPage < diff;
                     });
@@ -157,11 +154,11 @@ export default {
             return this.pages.map((page, key) => {
                 return {
                     page,
-                    active: page === this.currentPage,
+                    active: page === this.page,
                     disabled: this.disabled(page, key),
                     html: this.html(page, key),
                     title: this.title(key),
-                    loading: this.loading && page === this.currentPage,
+                    loading: this.loading && page === this.page,
                 };
             });
         },
@@ -172,14 +169,28 @@ export default {
             handler: 'pageChange',
             immediate: true,
         },
+
+        start: {
+            handler: 'rangeChange',
+        },
+
+        end: {
+            handler: 'rangeChange',
+            immediate: true,
+        },
     },
 
     methods: {
         pageChange (page) {
-            if (page !== this.currentPage && this.validPage(page)) {
-                this.currentPage = page;
-                this.$emit('page-change', this.currentPage, this.start, this.end);
+            if (page >= this.totalPages) {
+                throw new Error('page may be maximum the total number of pages minus one');
             }
+
+            this.$emit('page-change', page);
+        },
+
+        rangeChange () {
+            this.$emit('range-change', this.start, this.end);
         },
 
         html (page, key) {
@@ -199,8 +210,8 @@ export default {
         },
 
         disabled (page, key) {
-            return key === 0 && this.currentPage === 0 ||
-                key === this.pages.length - 1 && this.currentPage === this.totalPages - 1 ||
+            return key === 0 && this.page === 0 ||
+                key === this.pages.length - 1 && this.page === this.totalPages - 1 ||
                 page === '...';
         },
 
@@ -214,16 +225,6 @@ export default {
             }
 
             return '';
-        },
-
-        validPage (page) {
-            if (page >= this.totalPages) {
-                throw new Error(
-                    'page may be maximum the total number of pages minus one'
-                );
-            }
-
-            return true;
         },
     },
 };
