@@ -80,14 +80,31 @@ describe('VueAdsPagination', () => {
     });
 
     it('returns the correct pages if their are more pages then maxVisiblePages', () => {
-        expect(pagination.vm.pages).toEqual([-1, 0, 1, 2, 3, 4, 5, 6, '...', 14, 1]);
+        expect(pagination.vm.pages).toEqual([
+            -1,
+            0,
+            1,
+            2,
+            3,
+            4,
+            5,
+            6,
+            '...',
+            14,
+            1,
+        ]);
     });
 
     it('returns the correct pages if their are less pages then maxVisiblePages', () => {
         pagination.setProps({
             totalItems: 20,
         });
-        expect(pagination.vm.pages).toEqual([-1, 0, 1, 1]);
+        expect(pagination.vm.pages).toEqual([
+            -1,
+            0,
+            1,
+            1,
+        ]);
     });
 
     it('uses the slot for displaying the range', () => {

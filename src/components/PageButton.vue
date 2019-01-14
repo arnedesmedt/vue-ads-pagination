@@ -22,7 +22,10 @@ export default {
 
     props: {
         page: {
-            type: [Number, String],
+            type: [
+                Number,
+                String,
+            ],
             required: true,
         },
 

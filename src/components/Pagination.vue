@@ -119,7 +119,9 @@ export default {
                     ...filteredPages,
                     filteredPages[filteredPages.length - 1] + 1 === this.totalPages - 2 ? this.totalPages - 2 : '...',
                 ] :
-                [...Array(this.totalPages - 2).keys()].map(page => page + 1);
+                [
+                    ...Array(this.totalPages - 2).keys(),
+                ].map(page => page + 1);
 
             return [
                 this.currentPage - 1,
@@ -132,7 +134,9 @@ export default {
 
         filteredPages () {
             let diff = this.maxVisiblePages / 2;
-            let toFilterPages = [...Array(this.totalPages).keys()].slice(2, -2);
+            let toFilterPages = [
+                ...Array(this.totalPages).keys(),
+            ].slice(2, -2);
 
             if (toFilterPages.length > this.maxVisiblePages) {
                 let diffFirst = this.currentPage - toFilterPages[0];
@@ -217,9 +221,7 @@ export default {
 
         validPage (page) {
             if (page >= this.totalPages) {
-                throw new Error(
-                    'page may be maximum the total number of pages minus one'
-                );
+                throw new Error('page may be maximum the total number of pages minus one');
             }
 
             return true;
