@@ -1,8 +1,13 @@
 <template>
     <div id="app">
         <vue-ads-pagination
-            :total-items="200"
-            :max-visible-pages="4"
+            :total-items="totalItems"
+            :max-visible-pages="maxVisiblePages"
+            :page="page"
+            :loading="loading"
+            :items-per-page="itemsPerPage"
+            @range-change="rangeChange"
+            @page-change="pageChange"
         >
             <!--<template slot-scope="props">-->
             <!--<div class="vue-ads-pr-2 vue-ads-leading-loose">-->
@@ -40,14 +45,24 @@ export default {
 
     data () {
         return {
-            page: 5,
+            start: null,
+            end: null,
+            page: 0,
+            maxVisiblePages: 4,
+            totalItems: 12,
             loading: false,
+            itemsPerPage: 20,
         };
     },
 
     methods: {
-        pageChange (page, start, end) {
-            console.log(page, start, end);
+        pageChange (page) {
+            this.page = page;
+        },
+
+        rangeChange (start, end) {
+            this.start = start;
+            this.end = end;
         },
     },
 };
