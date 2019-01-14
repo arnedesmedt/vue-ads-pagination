@@ -36,6 +36,7 @@ You can add the vue-ads-pagination component by using the following code in your
             :page="page"
             :loading="loading"
             @page-change="pageChange"
+            @range-change="rangeChange"
         >
             <template slot-scope="props">
                 <div class="vue-ads-pr-2 vue-ads-leading-loose">
@@ -79,8 +80,12 @@ export default {
     },
 
     methods: {
-        pageChange (page, start, end) {
-            console.log(page, start, end);
+        pageChange (page) {
+            console.log(page);
+        },
+        
+        rangeChange (start, end) {
+            console.log(start, end);
         },
     },
 };
@@ -103,6 +108,9 @@ export default {
 
 - `page-change`: Emitted on creation, to know the initial state, and if another page is clicked. It contains the following parameters:
     - `page`: *(type: number)* The zero-based current page.
+    
+- `range-change`: Emitted on creation, to know the initial state, and if another page is clicked or the total items change and you're on the last page. 
+It contains the following parameters:
     - `start`: *(type: number)* A zero-based number to identify the first item.
     - `end`: *(type: number)* A zero-based number to identify the last item.
         
