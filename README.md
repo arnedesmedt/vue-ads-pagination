@@ -81,6 +81,7 @@ export default {
 
     methods: {
         pageChange (page) {
+            this.page = page;
             console.log(page);
         },
         
@@ -98,7 +99,8 @@ export default {
 
 ##### Properties
 
-- `page`: *(type: number, default: 0)* A zero-based number to set the page.
+- `page`: *(type: number, default: 0)* A zero-based number to set the page. 
+Be aware you need to update the page property by the result of the page-change action!
 - `items-per-page`: *(type: number, default: 10)* The maximum amount of items on one page.
 - `max-visible-pages`: *(type: number, default: 5)* The maximum number of pages to be visible if their are too many pages.
 - `total-items`: *(type: number, required)* The total amount of items.
