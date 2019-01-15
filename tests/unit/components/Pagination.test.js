@@ -1,5 +1,6 @@
-import { shallowMount } from '@vue/test-utils';
+import { shallowMount, mount } from '@vue/test-utils';
 import Pagination from '@/components/Pagination.vue';
+import PageButton from '@/components/PageButton.vue';
 
 describe('VueAdsPagination', () => {
     let pagination;
@@ -135,20 +136,28 @@ describe('VueAdsPagination', () => {
         expect(pagination.find('#buttons').text()).toEqual('-10123456...141');
     });
 
-    it('emits the current page, the start and end value', () => {
+    it('emits the current range if the page changes from outside', () => {
         pagination.setProps({
             page: 2,
         });
-
-        expect(pagination.emitted()['page-change']).toBeTruthy();
-        expect(pagination.emitted()['page-change'][1]).toEqual([
-            2,
-        ]);
 
         expect(pagination.emitted()['range-change']).toBeTruthy();
         expect(pagination.emitted()['range-change'][1]).toEqual([
             20,
             30,
+        ]);
+    });
+
+    it('emits the current page if a button is clicked', () => {
+        pagination = mount(Pagination, {
+            propsData: props,
+        });
+
+        pagination.findAll(PageButton).at(2).trigger('click');
+
+        expect(pagination.emitted()['page-change']).toBeTruthy();
+        expect(pagination.emitted()['page-change'][0]).toEqual([
+            1,
         ]);
     });
 

@@ -185,8 +185,6 @@ export default {
             if (page >= this.totalPages) {
                 throw new Error('page may be maximum the total number of pages minus one');
             }
-
-            this.$emit('page-change', page);
         },
 
         rangeChange () {
