@@ -170,13 +170,12 @@ export default {
             immediate: true,
         },
 
-        start: {
+        itemsPerPage: {
             handler: 'rangeChange',
         },
 
-        end: {
+        totalItems: {
             handler: 'rangeChange',
-            immediate: true,
         },
     },
 
@@ -185,6 +184,8 @@ export default {
             if (page >= this.totalPages) {
                 throw new Error('page may be maximum the total number of pages minus one');
             }
+
+            this.rangeChange();
         },
 
         rangeChange () {
