@@ -181,7 +181,7 @@ export default {
 
     methods: {
         pageChange (page) {
-            if (page >= this.totalPages) {
+            if (page >= this.totalPages && page !== 0 && this.totalPages !== 0) {
                 throw new Error('page may be maximum the total number of pages minus one');
             }
 
