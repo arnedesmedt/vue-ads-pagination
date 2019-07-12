@@ -8,7 +8,7 @@ module.exports = {
             ],
             whitelistPatterns: [
                 /^focus:vue-ads-outline-none$/,
-                /^hover:vue-ads-bg-grey-lighter$/,
+                /^hover:vue-ads-bg-gray-100$/,
             ],
         },
         'postcss-import': {},

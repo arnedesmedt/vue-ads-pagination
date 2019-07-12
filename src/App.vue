@@ -51,7 +51,7 @@ export default {
             maxVisiblePages: 4,
             totalItems: 12,
             loading: false,
-            itemsPerPage: 20,
+            itemsPerPage: 10,
         };
     },
 

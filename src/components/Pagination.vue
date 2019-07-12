@@ -46,7 +46,6 @@ export default {
     props: {
         page: {
             type: Number,
-            required: false,
             default: 0,
             validator: (page) => {
                 return page >= 0;
@@ -55,7 +54,6 @@ export default {
 
         itemsPerPage: {
             type: Number,
-            required: false,
             default: 10,
             validator: (itemsPerPage) => {
                 return itemsPerPage > 0;
@@ -64,7 +62,6 @@ export default {
 
         maxVisiblePages: {
             type: Number,
-            required: false,
             default: 5,
             validator: (maxVisiblePages) => {
                 return maxVisiblePages > 0;
@@ -81,7 +78,6 @@ export default {
 
         loading: {
             type: Boolean,
-            required: false,
             default: false,
         },
     },

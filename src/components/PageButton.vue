@@ -31,13 +31,11 @@ export default {
 
         active: {
             type: Boolean,
-            required: false,
             default: false,
         },
 
         disabled: {
             type: Boolean,
-            required: false,
             default: false,
         },
 
@@ -48,19 +46,16 @@ export default {
 
         title: {
             type: String,
-            required: false,
             default: '',
         },
 
         loading: {
             type: Boolean,
-            required: false,
             default: false,
         },
 
         disableStyling: {
             type: Boolean,
-            required: false,
             default: false,
         },
     },
@@ -76,12 +71,12 @@ export default {
                 'vue-ads-ml-1': true,
                 'vue-ads-leading-normal': true,
                 'vue-ads-w-6': true,
-                'vue-ads-bg-teal-dark': this.active,
+                'vue-ads-bg-teal-500': this.active,
                 'vue-ads-text-white': this.active,
                 'vue-ads-cursor-default': this.active || this.disabled,
-                'vue-ads-bg-grey-light': this.disabled && this.page !== '...',
-                'vue-ads-text-grey': this.disabled && this.page !== '...',
-                'hover:vue-ads-bg-grey-lighter': !this.active && !this.disabled,
+                'vue-ads-bg-gray-200': this.disabled && this.page !== '...',
+                'vue-ads-text-gray': this.disabled && this.page !== '...',
+                'hover:vue-ads-bg-gray-100': !this.active && !this.disabled,
             };
         },
     },
