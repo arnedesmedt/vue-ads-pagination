@@ -144,6 +144,8 @@ export default {
                     });
                 }
             }
+
+            return null;
         },
 
         buttons () {
@@ -187,8 +189,7 @@ export default {
         rangeChange () {
             if (this.page >= this.totalPages && this.totalPages !== 0) {
                 this.$emit('page-change', this.totalPages - 1);
-            }
-            else {
+            } else {
                 this.$emit('range-change', this.start, this.end);
             }
         },

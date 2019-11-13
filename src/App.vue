@@ -9,22 +9,22 @@
             @range-change="rangeChange"
             @page-change="pageChange"
         >
-            <!--<template slot-scope="props">-->
-            <!--<div class="vue-ads-pr-2 vue-ads-leading-loose">-->
-            <!--Items {{ props.start }} tot {{ props.end }} van de {{ props.total }}-->
-            <!--</div>-->
-            <!--</template>-->
-            <!--<template-->
-            <!--slot="buttons"-->
-            <!--slot-scope="props"-->
-            <!--&gt;-->
-            <!--<vue-ads-page-button-->
-            <!--v-for="(button, key) in props.buttons"-->
-            <!--:key="key"-->
-            <!--v-bind="button"-->
-            <!--@page-change="page = button.page"-->
-            <!--/>-->
-            <!--</template>-->
+            <template slot-scope="props">
+                <div class="vue-ads-pr-2 vue-ads-leading-loose">
+                    Items {{ props.start }} tot {{ props.end }} van de {{ props.total }}
+                </div>
+            </template>
+            <template
+                slot="buttons"
+                slot-scope="props"
+            >
+                <vue-ads-page-button
+                    v-for="(button, key) in props.buttons"
+                    :key="key"
+                    v-bind="button"
+                    @page-change="page = button.page"
+                />
+            </template>
         </vue-ads-pagination>
     </div>
 </template>
