@@ -185,7 +185,12 @@ export default {
         },
 
         rangeChange () {
-            this.$emit('range-change', this.start, this.end);
+            if (this.page >= this.totalPages && this.totalPages !== 0) {
+                this.$emit('page-change', this.totalPages - 1);
+            }
+            else {
+                this.$emit('range-change', this.start, this.end);
+            }
         },
 
         html (page, key) {
