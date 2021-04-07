@@ -1,6 +1,7 @@
 <template>
     <div id="app">
         <vue-ads-pagination
+            with-input
             :total-items="totalItems"
             :max-visible-pages="maxVisiblePages"
             :page="page"
@@ -49,7 +50,7 @@ export default {
             end: null,
             page: 0,
             maxVisiblePages: 4,
-            totalItems: 12,
+            totalItems: 9005,
             loading: false,
             itemsPerPage: 10,
         };
