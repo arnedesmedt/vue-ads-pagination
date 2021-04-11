@@ -1,7 +1,7 @@
 <template>
     <div
         v-if="totalPages > 0"
-        class="vue-ads-flex vue-ads-m-2 vue-ads-px-0 vue-ads-text-xs justify-between"
+        class="vue-ads-flex vue-ads-m-2 vue-ads-px-0 vue-ads-text-xs vue-ads-justify-between"
     >
         <slot
             :start="start + 1"
