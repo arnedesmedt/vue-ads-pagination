@@ -1,79 +1,68 @@
 <template>
     <div
         v-if="totalPages > 0"
-        class="vue-ads-flex vue-ads-m-2 vue-ads-px-0 vue-ads-text-xs"
+        class="vue-ads-flex vue-ads-m-2 vue-ads-px-0 vue-ads-text-xs vue-ads-justify-between"
     >
         <slot
             :start="start + 1"
             :end="end"
             :total="totalItems"
         >
-            <div
-                class="vue-ads-pr-2 vue-ads-leading-loose"
-            >
-                {{ start + 1 }} - {{ end }} of {{ totalItems }} items
+            <div class="vue-ads-pr-2 vue-ads-leading-loose">
+                Items {{ start + 1 }} to {{ end }} of {{ totalItems }}
             </div>
-        </slot>
-        <div
-            v-if="totalPages > 1"
-            class="vue-ads-flex-grow vue-ads-flex vue-ads-justify-end"
-        >
-            <slot
-                :buttons="buttons"
-                name="buttons"
-            >
-                <vue-ads-page-button
-                    v-for="(button, key) in buttons"
-                    :key="key"
-                    v-bind="button"
-                    @page-change="$emit('page-change', button.page)"
-                />
-            </slot>
+        </slot >
+        <div v-if="totalPages > 1">
+            <pagination-with-input 
+                v-if="withInput"
+                class="vue-ads-flex-grow vue-ads-flex vue-ads-justify-end"
+                v-bind="$props"
+                @page-change="$emit('page-change', $event)"
+            />
+            <div v-else class="vue-ads-flex-grow vue-ads-flex vue-ads-justify-end h-full">
+                <slot
+                    :buttons="buttons"
+                    name="buttons"
+                >
+                    <vue-ads-page-button
+                        v-for="(button, key) in buttons"
+                        :key="key"
+                        v-bind="button"
+                        @page-change="$emit('page-change', button.page)"
+                    />
+                </slot>
+            </div>
         </div>
     </div>
 </template>
 
 <script>
+import paginationMixin from './MixinPagination.js';
 import VueAdsPageButton from './PageButton';
+import PaginationWithInput from './PaginationWithInput';
 
 export default {
     name: 'VueAdsPagination',
 
     components: {
-        VueAdsPageButton,
+        'vue-ads-page-button': VueAdsPageButton,
+        'pagination-with-input': PaginationWithInput,
     },
 
-    props: {
-        page: {
-            type: Number,
-            default: 0,
-            validator: (page) => {
-                return page >= 0;
-            },
-        },
+    mixins: [
+        paginationMixin, 
+    ],
 
-        itemsPerPage: {
-            type: Number,
-            default: 10,
-            validator: (itemsPerPage) => {
-                return itemsPerPage > 0;
-            },
+    props: {
+        withInput: {
+            type: Boolean,
+            default: false,
         },
 
         maxVisiblePages: {
             type: Number,
             default: 5,
-            validator: (maxVisiblePages) => {
-                return maxVisiblePages > 0;
-            },
-        },
-
-        totalItems: {
-            type: Number,
-            required: true,
-            validator: (totalItems) => {
-                return totalItems >= 0;
-            },
+            validator: (maxVisiblePages) => maxVisiblePages > 0,
         },
 
         loading: {
@@ -91,14 +80,6 @@ export default {
             let end = this.start + this.itemsPerPage;
 
             return this.totalItems < end ? this.totalItems : end;
-        },
-
-        totalPages () {
-            if (this.itemsPerPage === 0) {
-                return 0;
-            }
-
-            return Math.ceil(this.totalItems / this.itemsPerPage);
         },
 
         pages () {
@@ -207,7 +188,7 @@ export default {
                 return page;
             }
 
-            return (page + 1) + '';
+            return String(page + 1);
         },
 
         disabled (page, key) {
