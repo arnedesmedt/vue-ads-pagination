@@ -33,6 +33,7 @@ You can add the vue-ads-pagination component by using the following code in your
         <vue-ads-pagination
             :total-items="200"
             :max-visible-pages="5"
+            :with-input="false"
             :page="page"
             :loading="loading"
             @page-change="pageChange"
@@ -62,7 +63,7 @@ You can add the vue-ads-pagination component by using the following code in your
 import '../node_modules/@fortawesome/fontawesome-free/css/all.css';
 import '../node_modules/vue-ads-pagination/dist/vue-ads-pagination.css';
 
-import VueAdsPagination, VueAdsInputPagination, { VueAdsPageButton } from 'vue-ads-pagination';
+import VueAdsPagination, { VueAdsPageButton } from 'vue-ads-pagination';
 
 export default {
     name: 'App',
@@ -70,7 +71,6 @@ export default {
     components: {
         VueAdsPagination,
         VueAdsPageButton,
-        VueAdsInputPagination,
     },
 
     data () {
@@ -106,7 +106,7 @@ Be aware you need to update the page property by the result of the page-change a
 - `max-visible-pages`: *(type: number, default: 5)* The maximum number of pages to be visible if their are too many pages.
 - `total-items`: *(type: number, required)* The total amount of items.
 - `loading`: *(type: boolean, default: false)* Indicates if the current page is loading.
-- `with-input`: *(type: boolean, default: false)* Indicates which component to render
+- `with-input`: *(type: boolean, default: false)* Indicates whether to display an input field (`true`) or buttons (`false`) to navigate to a specific page. The input field allows for easier navigation when there are a lot of pages (couple dozens or more).
 
 ##### Events
 
@@ -134,20 +134,6 @@ The scope contains 3 variables:
     {{ props.start }} - {{ props.end }} : Total {{ props.total }}
 </template>
 ```
-
-#### VueAdsPaginationWithInput
-
-##### Properties
-
-- `page`: *(type: number, default: 0)* A zero-based number to set the page. 
-Be aware you need to update the page property by the result of the page-change action!
-- `items-per-page`: *(type: number, default: 10)* The maximum amount of items on one page.
-- `total-items`: *(type: number, required)* The total amount of items.
-
-##### Events
-
-- `page-change`: Emitted on creation, to know the initial state, and if another page is clicked. It contains the following parameters:
-    - `page`: *(type: number)* The zero-based current page.
 
 ###### Buttons
 
